@@ -37,7 +37,7 @@ const Registration = () => {
           rules={[
             {
               required: true,
-              message: 'Please input your password!',
+              message: 'Введите пароль',
             },
           ]}
           hasFeedback
@@ -52,14 +52,14 @@ const Registration = () => {
           rules={[
             {
               required: true,
-              message: 'Подтвердите пароль!',
+              message: 'Подтвердите пароль',
             },
             ({ getFieldValue }) => ({
               validator(rule, value) {
                 if (!value || getFieldValue('password') === value) {
                   return Promise.resolve()
                 }
-                return Promise.reject(`Пароли не совпадают!`)
+                return Promise.reject(`Пароли не совпадают`)
               },
             }),
           ]}
