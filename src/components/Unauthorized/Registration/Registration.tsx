@@ -80,9 +80,13 @@ const Registration = () => {
             }
             size="large"
           >
-            <Select.Option value="jack">Биржевая линия 14-16</Select.Option>
-            <Select.Option value="lucy">Ломоносова 9</Select.Option>
-            <Select.Option value="tom">Кронверкский проспект 49</Select.Option>
+            <Select.Option value="Биржевая линия 14-16">
+              Биржевая линия 14-16
+            </Select.Option>
+            <Select.Option value="Ломоносова 9">Ломоносова 9</Select.Option>
+            <Select.Option value="Кронверкский проспект 49">
+              Кронверкский проспект 49
+            </Select.Option>
           </Select>
         </Form.Item>
         <Form.Item label="Расположение контейнера" required>

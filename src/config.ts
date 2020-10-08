@@ -3,3 +3,7 @@ export const PUBLIC_PATH = {
   REGISTRATION: `/registration`,
   RESTORE: `/restore`,
 }
+
+export const PRIVATE_PATH = {
+  BOXES: `/boxes`,
+}

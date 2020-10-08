@@ -5,7 +5,12 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import styles from './login.module.scss'
 import { PUBLIC_PATH } from '../../../config'
 
-const Login = () => {
+interface Props {
+  setAuthorized: (authorized: boolean) => void
+}
+
+const Login = (props: Props) => {
+  const { setAuthorized } = props
   return (
     <>
       <PageHeader title="Вход" />
@@ -26,10 +31,13 @@ const Login = () => {
           />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" className={styles.loginButton} size="large">
-            <Link className={styles.registerLink} to={PUBLIC_PATH.REGISTRATION}>
-              Войти
-            </Link>
+          <Button
+            type="primary"
+            size="large"
+            className={styles.loginButton}
+            onClick={() => setAuthorized(true)}
+          >
+            Войти
           </Button>
         </Form.Item>
         <Form.Item className={styles.buttonsWrapper}>
