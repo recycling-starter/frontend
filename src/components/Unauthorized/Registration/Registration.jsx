@@ -10,7 +10,6 @@ const Registration = () => {
     <>
       <PageHeader
         title="Регистрация"
-        onBack={() => null}
         backIcon={
           <Link
             to={PUBLIC_PATH.LOGIN}
@@ -20,43 +19,44 @@ const Registration = () => {
             <ArrowLeftOutlined />
           </Link>
         }
+        onBack={() => null}
       />
       <Form className={styles.wrapper}>
-        <Form.Item label="Имя" required>
+        <Form.Item required label="Имя">
           <Input placeholder="Иван Иванович" size="large" />
         </Form.Item>
-        <Form.Item label="E-mail" required>
+        <Form.Item required label="E-mail">
           <Input placeholder="ivanovich@mail.com" type="email" size="large" />
         </Form.Item>
-        <Form.Item label="Телефон" required>
+        <Form.Item required label="Телефон">
           <Input placeholder="+7 (912) 345 67 89" type="phone" size="large" />
         </Form.Item>
         <Form.Item
+          hasFeedback
           name="password"
           label="Пароль"
           rules={[
             {
               required: true,
-              message: 'Введите пароль',
+              message: `Введите пароль`,
             },
           ]}
-          hasFeedback
         >
           <Input.Password placeholder="••••••••" size="large" />
         </Form.Item>
         <Form.Item
+          hasFeedback
           name="confirm"
           label="Подтвердите пароль"
-          dependencies={['password']}
-          hasFeedback
+          dependencies={[`password`]}
           rules={[
             {
               required: true,
-              message: 'Подтвердите пароль',
+              message: `Подтвердите пароль`,
             },
             ({ getFieldValue }) => ({
               validator(rule, value) {
-                if (!value || getFieldValue('password') === value) {
+                if (!value || getFieldValue(`password`) === value) {
                   return Promise.resolve()
                 }
                 return Promise.reject(`Пароли не совпадают`)
@@ -66,7 +66,7 @@ const Registration = () => {
         >
           <Input.Password placeholder="••••••••" size="large" />
         </Form.Item>
-        <Form.Item label="Здание" required>
+        <Form.Item required label="Здание">
           <Select
             showSearch
             placeholder="Выберите здание"
@@ -89,10 +89,10 @@ const Registration = () => {
             </Select.Option>
           </Select>
         </Form.Item>
-        <Form.Item label="Расположение контейнера" required>
+        <Form.Item required label="Расположение контейнера">
           <Input placeholder="Возле 312 аудитории" size="large" />
         </Form.Item>
-        <Form.Item label="Код контейнера" required>
+        <Form.Item required label="Код контейнера">
           <InputNumber
             formatter={(value) => `# ${value}`}
             className={styles.containerCode}

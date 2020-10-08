@@ -1,16 +1,15 @@
 import React from 'react'
 import { Button, Divider, Form, Input, PageHeader, Typography } from 'antd'
 import { Link } from 'react-router-dom'
+import { ArrowLeftOutlined } from '@ant-design/icons'
 import { PUBLIC_PATH } from '../../../config'
 import styles from './restore.module.scss'
-import { ArrowLeftOutlined } from '@ant-design/icons'
 
 const Restore = () => {
   return (
     <>
       <PageHeader
         title="Сброс пароля"
-        onBack={() => null}
         backIcon={
           <Link
             to={PUBLIC_PATH.LOGIN}
@@ -20,6 +19,7 @@ const Restore = () => {
             <ArrowLeftOutlined />
           </Link>
         }
+        onBack={() => null}
       />
       <Form className={styles.wrapper}>
         <Typography.Text>
