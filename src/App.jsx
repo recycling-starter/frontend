@@ -6,36 +6,38 @@ import Registration from './components/Unauthorized/Registration'
 import Restore from './components/Unauthorized/Restore'
 import Authorized from './components/Authorized'
 import Boxes from './components/Authorized/Boxes'
+import Box from './components/Authorized/Boxes/Box'
 
 const App = () => {
-  const [authorized, setAuthorized] = useState(false)
-  return (
+  const [authorized, setAuthorized] = useState(true)
+  return authorized ? (
+    <Authorized setAuthorized={setAuthorized}>
+      <Switch>
+        <Route exact path={PRIVATE_PATH.BOXES}>
+          <Boxes />
+        </Route>
+        <Route exact path={PRIVATE_PATH.BOX}>
+          <Box />
+        </Route>
+        <Route>
+          <Redirect to={PRIVATE_PATH.BOXES} />
+        </Route>
+      </Switch>
+    </Authorized>
+  ) : (
     <Switch>
-      {authorized ? (
-        <Authorized setAuthorized={setAuthorized}>
-          <Route path={PRIVATE_PATH.BOXES}>
-            <Boxes />
-          </Route>
-          <Route>
-            <Redirect to={PRIVATE_PATH.BOXES} />
-          </Route>
-        </Authorized>
-      ) : (
-        <>
-          <Route path={PUBLIC_PATH.LOGIN}>
-            <Login setAuthorized={setAuthorized} />
-          </Route>
-          <Route path={PUBLIC_PATH.REGISTRATION}>
-            <Registration />
-          </Route>
-          <Route path={PUBLIC_PATH.RESTORE}>
-            <Restore />
-          </Route>
-          <Route>
-            <Redirect to={PUBLIC_PATH.LOGIN} />
-          </Route>
-        </>
-      )}
+      <Route exact path={PUBLIC_PATH.LOGIN}>
+        <Login setAuthorized={setAuthorized} />
+      </Route>
+      <Route exact path={PUBLIC_PATH.REGISTRATION}>
+        <Registration />
+      </Route>
+      <Route exact path={PUBLIC_PATH.RESTORE}>
+        <Restore />
+      </Route>
+      <Route>
+        <Redirect to={PUBLIC_PATH.LOGIN} />
+      </Route>
     </Switch>
   )
 }

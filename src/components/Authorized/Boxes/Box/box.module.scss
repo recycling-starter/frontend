@@ -1,0 +1,26 @@
+.wrapper {
+  
+}
+
+.circle {
+  display: block;
+  justify-content: center;
+  margin: 0 auto;
+  width: fit-content;
+  font-size: 25px;
+}
+
+.buttons {
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 64px;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.text {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 24px;
+  line-height: 100%;
+}

@@ -1,19 +1,18 @@
-import React from 'react'
-import { Card, Progress, Select, Statistic } from 'antd'
+import React, { useEffect, useContext } from 'react'
+import { Select } from 'antd'
+import { Link, useHistory } from 'react-router-dom'
+import { HeaderContext } from '../Authorized'
 import styles from './boxes.module.scss'
-
-const BoxCard = () => {
-  return (
-    <Card title="837263">
-      <div className={styles.cardContentWrapper}>
-        <Progress type="circle" percent={75} width={80} />
-        <Statistic title="Расположение:" value="Лестница" />
-      </div>
-    </Card>
-  )
-}
+import BoxCard from './BoxCard'
 
 const Boxes = () => {
+  const history = useHistory()
+  const setHeaderProps = useContext(HeaderContext)
+
+  useEffect(() => {
+    setHeaderProps({ title: `Контейнеры`, isReturnPossible: false })
+  }, [setHeaderProps])
+
   return (
     <div className={styles.wrapper}>
       <Select
@@ -35,8 +34,12 @@ const Boxes = () => {
           Кронверкский проспект 49
         </Select.Option>
       </Select>
-      <BoxCard />
-      <BoxCard />
+      <Link to={`${history.location.pathname}/837263`}>
+        <BoxCard />
+      </Link>
+      <Link to={`${history.location.pathname}/837263`}>
+        <BoxCard />
+      </Link>
     </div>
   )
 }

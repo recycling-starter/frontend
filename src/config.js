@@ -6,4 +6,5 @@ export const PUBLIC_PATH = {
 
 export const PRIVATE_PATH = {
   BOXES: `/boxes`,
+  BOX: `/boxes/:id`,
 }

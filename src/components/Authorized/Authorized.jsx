@@ -1,19 +1,34 @@
 import React, { useState } from 'react'
 import { Drawer, Menu, PageHeader } from 'antd'
-import { MenuOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined, MenuOutlined } from '@ant-design/icons'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import styles from './authorized.module.scss'
+
+export const HeaderContext = React.createContext({})
 
 const Authorized = (props) => {
   const { children, setAuthorized } = props
   const [showDrawer, setShowDrawer] = useState(false)
+  const [headerProps, setHeaderProps] = useState({
+    title: ``,
+  })
+  const { title, isReturnPossible } = headerProps
 
   return (
     <>
       <PageHeader
-        title="Контейнеры"
-        backIcon={<MenuOutlined />}
-        onBack={() => setShowDrawer(true)}
+        title={title}
+        backIcon={
+          isReturnPossible ? (
+            <Link to=".." style={{ color: `inherit` }}>
+              <ArrowLeftOutlined />
+            </Link>
+          ) : (
+            <MenuOutlined />
+          )
+        }
+        onBack={isReturnPossible ? () => null : () => setShowDrawer(true)}
       />
       <Drawer
         title="Администратор"
@@ -33,13 +48,17 @@ const Authorized = (props) => {
           </Menu.Item>
         </Menu>
       </Drawer>
-      <div className={styles.wrapper}>{children}</div>
+      <div className={styles.wrapper}>
+        <HeaderContext.Provider value={setHeaderProps}>
+          {children}
+        </HeaderContext.Provider>
+      </div>
     </>
   )
 }
 
 Authorized.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.element,
   setAuthorized: PropTypes.func,
 }
 
