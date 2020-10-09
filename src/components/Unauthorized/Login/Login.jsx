@@ -6,7 +6,7 @@ import styles from './login.module.scss'
 import { PUBLIC_PATH } from '../../../config'
 
 interface Props {
-  setAuthorized: (authorized: boolean) => void
+  setAuthorized: (authorized: boolean) => void;
 }
 
 const Login = (props: Props) => {

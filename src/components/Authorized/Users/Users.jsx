@@ -2,14 +2,14 @@ import React, { useEffect, useContext } from 'react'
 import { Select } from 'antd'
 import { Link, useHistory } from 'react-router-dom'
 import { HeaderContext } from '../Authorized'
-import BoxCard from './BoxCard'
+import UserCard from './UserCard'
 
-const Boxes = () => {
+const Users = () => {
   const history = useHistory()
   const setHeaderProps = useContext(HeaderContext)
 
   useEffect(() => {
-    setHeaderProps({ title: `Контейнеры` })
+    setHeaderProps({ title: `Пользователи` })
   }, [setHeaderProps])
 
   return (
@@ -24,13 +24,13 @@ const Boxes = () => {
         </Select.Option>
       </Select>
       <Link to={`${history.location.pathname}/837263`}>
-        <BoxCard />
+        <UserCard />
       </Link>
       <Link to={`${history.location.pathname}/837263`}>
-        <BoxCard />
+        <UserCard />
       </Link>
     </>
   )
 }
 
-export default Boxes
+export default Users

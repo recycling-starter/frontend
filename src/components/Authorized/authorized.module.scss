@@ -1,3 +1,9 @@
 .wrapper {
-  padding: 16px 24px;
+  padding: 16px 24px 24px;
+  display: grid;
+  grid-gap: 24px;
+}
+
+.logout {
+  margin-top: 24px !important;
 }

@@ -5,6 +5,12 @@ export const PUBLIC_PATH = {
 }
 
 export const PRIVATE_PATH = {
+  PROFILE: `/profile`,
   BOXES: `/boxes`,
   BOX: `/boxes/:id`,
+  USERS: `/users`,
+  USER: `/users/:id`,
+  CALLS: `/calls`,
+  CALL: `/calls/:id`,
+  SETTINGS: `/settings`,
 }

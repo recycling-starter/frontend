@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Redirect, Route, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import { PUBLIC_PATH, PRIVATE_PATH } from './config'
 import Login from './components/Unauthorized/Login'
 import Registration from './components/Unauthorized/Registration'
@@ -7,21 +7,29 @@ import Restore from './components/Unauthorized/Restore'
 import Authorized from './components/Authorized'
 import Boxes from './components/Authorized/Boxes'
 import Box from './components/Authorized/Boxes/Box'
+import Users from './components/Authorized/Users'
+import User from './components/Authorized/Users/User'
 
 const App = () => {
   const [authorized, setAuthorized] = useState(true)
+  const { pathname } = useLocation()
   return authorized ? (
     <Authorized setAuthorized={setAuthorized}>
       <Switch>
+        <Redirect from="/:url*(/+)" to={pathname.slice(0, -1)} />
         <Route exact path={PRIVATE_PATH.BOXES}>
           <Boxes />
         </Route>
         <Route exact path={PRIVATE_PATH.BOX}>
           <Box />
         </Route>
-        <Route>
-          <Redirect to={PRIVATE_PATH.BOXES} />
+        <Route exact path={PRIVATE_PATH.USERS}>
+          <Users />
         </Route>
+        <Route exact path={PRIVATE_PATH.USER}>
+          <User />
+        </Route>
+        <Redirect to={PRIVATE_PATH.BOXES} />
       </Switch>
     </Authorized>
   ) : (
