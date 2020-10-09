@@ -5,11 +5,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import styles from './login.module.scss'
 import { PUBLIC_PATH } from '../../../config'
 
-interface Props {
-  setAuthorized: (authorized: boolean) => void;
-}
-
-const Login = (props: Props) => {
+const Login = (props) => {
   const { setAuthorized } = props
   return (
     <>

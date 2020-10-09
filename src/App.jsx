@@ -9,6 +9,9 @@ import Boxes from './components/Authorized/Boxes'
 import Box from './components/Authorized/Boxes/Box'
 import Users from './components/Authorized/Users'
 import User from './components/Authorized/Users/User'
+import Settings from './components/Authorized/Settings'
+import Calls from './components/Authorized/Calls'
+import Call from './components/Authorized/Calls/Call/Call'
 
 const App = () => {
   const [authorized, setAuthorized] = useState(true)
@@ -28,6 +31,15 @@ const App = () => {
         </Route>
         <Route exact path={PRIVATE_PATH.USER}>
           <User />
+        </Route>
+        <Route exact path={PRIVATE_PATH.SETTINGS}>
+          <Settings />
+        </Route>
+        <Route exact path={PRIVATE_PATH.CALLS}>
+          <Calls />
+        </Route>
+        <Route exact path={PRIVATE_PATH.CALL}>
+          <Call />
         </Route>
         <Redirect to={PRIVATE_PATH.BOXES} />
       </Switch>
