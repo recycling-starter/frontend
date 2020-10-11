@@ -1,6 +1,5 @@
 import { Card, Typography } from 'antd'
 import React from 'react'
-import styles from './callCard.module.scss'
 
 const CallCard = () => {
   return (

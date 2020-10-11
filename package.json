@@ -29,8 +29,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "lint": "eslint src --fix --ext js,jsx",
+    "format": "prettier --write \"src/**/*.js(x)\"",
     "deploy": "react-scripts build && firebase deploy"
   },
   "eslintConfig": {

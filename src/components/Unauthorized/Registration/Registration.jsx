@@ -1,8 +1,5 @@
 import React from 'react'
-import { Form, Input, Button, PageHeader, Select } from 'antd'
-import { ArrowLeftOutlined } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
-import { PUBLIC_PATH } from '../../../config'
+import { Form, Input, Button, Select } from 'antd'
 import styles from './registration.module.scss'
 
 const Registration = () => {

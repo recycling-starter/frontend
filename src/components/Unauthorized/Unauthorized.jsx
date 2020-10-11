@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import { PageHeader, Tabs } from 'antd'
+import { PUBLIC_PATH } from '../../config'
 import styles from './unauthorized.module.scss'
 import Logo from './assets/logo.png'
-import { PUBLIC_PATH } from '../../config'
 
 export const HeaderContext = React.createContext({})
 
@@ -15,7 +15,7 @@ const Unauthorized = (props) => {
     title: ``,
     tab: `login`,
   })
-  const { title, tab } = headerProps
+  const { title } = headerProps
 
   return (
     <>

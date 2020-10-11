@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
-import { HeaderContext } from '../Authorized'
-import { Card, Select, Typography } from 'antd'
+import { Select } from 'antd'
 import { Link, useHistory } from 'react-router-dom'
+import { HeaderContext } from '../Authorized'
 import CallCard from './CallCard'
 
 const Calls = () => {

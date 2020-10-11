@@ -6,10 +6,8 @@ import {
   Input,
   InputNumber,
   Select,
-  Upload,
   TimePicker,
 } from 'antd'
-import { UploadOutlined } from '@ant-design/icons'
 import moment from 'moment'
 import { HeaderContext } from '../Authorized'
 
