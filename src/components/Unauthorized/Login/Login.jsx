@@ -1,15 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { PageHeader, Form, Input, Button } from 'antd'
+import { Form, Input, Button } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
-import styles from './login.module.scss'
 import { PUBLIC_PATH } from '../../../config'
+import styles from './login.module.scss'
 
 const Login = (props) => {
   const { setAuthorized } = props
   return (
     <>
-      <PageHeader title="Вход" />
       <Form className={styles.wrapper} initialValues={{ remember: true }}>
         <Form.Item label="Логин">
           <Input
@@ -35,14 +34,7 @@ const Login = (props) => {
           >
             Войти
           </Button>
-        </Form.Item>
-        <Form.Item className={styles.buttonsWrapper}>
-          <Button className={styles.registerButton}>
-            <Link className={styles.registerLink} to={PUBLIC_PATH.REGISTRATION}>
-              Регистрация
-            </Link>
-          </Button>
-          <Link to={PUBLIC_PATH.RESTORE} className={styles.forgotPassword}>
+          <Link to={PUBLIC_PATH.RESTORE} className={styles.resetLink}>
             Забыли пароль?
           </Link>
         </Form.Item>

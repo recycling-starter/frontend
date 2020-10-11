@@ -12,9 +12,10 @@ import User from './components/Authorized/Users/User'
 import Settings from './components/Authorized/Settings'
 import Calls from './components/Authorized/Calls'
 import Call from './components/Authorized/Calls/Call/Call'
+import Unauthorized from './components/Unauthorized/Unauthorized'
 
 const App = () => {
-  const [authorized, setAuthorized] = useState(true)
+  const [authorized, setAuthorized] = useState(false)
   const { pathname } = useLocation()
   return authorized ? (
     <Authorized setAuthorized={setAuthorized}>
@@ -45,20 +46,22 @@ const App = () => {
       </Switch>
     </Authorized>
   ) : (
-    <Switch>
-      <Route exact path={PUBLIC_PATH.LOGIN}>
-        <Login setAuthorized={setAuthorized} />
-      </Route>
-      <Route exact path={PUBLIC_PATH.REGISTRATION}>
-        <Registration />
-      </Route>
-      <Route exact path={PUBLIC_PATH.RESTORE}>
-        <Restore />
-      </Route>
-      <Route>
-        <Redirect to={PUBLIC_PATH.LOGIN} />
-      </Route>
-    </Switch>
+    <Unauthorized>
+      <Switch>
+        <Route exact path={PUBLIC_PATH.LOGIN}>
+          <Login setAuthorized={setAuthorized} />
+        </Route>
+        <Route exact path={PUBLIC_PATH.REGISTRATION}>
+          <Registration />
+        </Route>
+        <Route exact path={PUBLIC_PATH.RESTORE}>
+          <Restore />
+        </Route>
+        <Route>
+          <Redirect to={PUBLIC_PATH.LOGIN} />
+        </Route>
+      </Switch>
+    </Unauthorized>
   )
 }
 

@@ -1,6 +1,5 @@
 .wrapper {
   padding: 16px 24px;
-  min-height: 70vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,22 +10,7 @@
   width: 100%;
 }
 
-.buttonsWrapper {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: nowrap;
-
-  :global(.ant-form-item-control-input-content) {
-    display: flex;
-    align-items: center;
-  }
-}
-
-.forgotPassword {
-  flex-grow: 1;
-  text-align: center;
-}
-
-.registerButton {
-  width: 50%;
+.resetLink {
+  margin-top: 12px;
+  display: block;
 }

@@ -35,63 +35,49 @@ const Box = () => {
     <div>
       <Typography.Title level={4}>Биржевая 14, лестница</Typography.Title>
       <Divider />
-      <Progress
-        width="50vw"
-        type="circle"
-        percent={filling}
-        className={styles.circle}
-      />
-      <Divider />
-      <div className={styles.buttons}>
-        <Button
-          icon={<MinusOutlined />}
-          onClick={() => handleChangeFilling(-10)}
-        />
-        <Button
-          icon={<PlusOutlined />}
-          onClick={() => handleChangeFilling(10)}
-        />
-      </div>
-      <p className={styles.text}>Изменение заполненности контейнера</p>
-      <Divider />
-      <Typography.Paragraph className={styles.paragraph}>
-        <Typography.Text>Код контейнера: </Typography.Text>
-        <Typography.Text
-          copyable={{ tooltips: [`Скопировать`, `Скопировано`] }}
-          onClick={(evt) => evt.preventDefault()}
-        >
-          837263
-        </Typography.Text>
-      </Typography.Paragraph>
-      <Divider />
-      <Divider>Настройки</Divider>
       <Form>
-        <Form.Item label="Здание">
-          <Input size="large" placeholder="Биржевая 14" />
-        </Form.Item>
+        <Progress
+          width="50vw"
+          type="circle"
+          percent={filling}
+          className={styles.circle}
+        />
+        <Divider />
+        <div className={styles.buttons}>
+          <Button
+            icon={<MinusOutlined />}
+            onClick={() => handleChangeFilling(-10)}
+          />
+          <Button
+            icon={<PlusOutlined />}
+            onClick={() => handleChangeFilling(10)}
+          />
+        </div>
+        <p className={styles.text}>Изменение заполненности контейнера</p>
+        <Divider />
         <Form.Item label="Расположение">
           <Input size="large" placeholder="Возле лестницы" />
         </Form.Item>
+        <Button block type="primary" size="large">
+          Сохранить
+        </Button>
+        <Divider />
+        <Divider>Ответственные</Divider>
+        <Card
+          title="Иван Иванович"
+          className={styles.card}
+          extra={<Button danger>Удалить</Button>}
+        >
+          Локация: К505
+        </Card>
+        <Select
+          size="large"
+          placeholder="Добавить ответственного из здания"
+          className={styles.select}
+        >
+          <Select.Option value="Лестница">Иван Иванович – К505</Select.Option>
+        </Select>
       </Form>
-      <Divider>Ответственные</Divider>
-      <Card
-        title="Иван Иванович"
-        className={styles.card}
-        extra={<Button danger>Удалить</Button>}
-      >
-        Локация: К505
-      </Card>
-      <Select
-        size="large"
-        placeholder="Добавить ответственного из здания"
-        className={styles.select}
-      >
-        <Select.Option value="Лестница">Иван Иванович – К505</Select.Option>
-      </Select>
-      <Divider />
-      <Button block type="primary" size="large">
-        Сохранить
-      </Button>
     </div>
   )
 }

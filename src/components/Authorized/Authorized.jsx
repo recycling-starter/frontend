@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Drawer, Menu, PageHeader, Typography } from 'antd'
 import { ArrowLeftOutlined, MenuOutlined } from '@ant-design/icons'
 import PropTypes from 'prop-types'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { PRIVATE_PATH } from '../../config'
 import styles from './authorized.module.scss'
 
@@ -14,13 +14,14 @@ const Authorized = (props) => {
   const [headerProps, setHeaderProps] = useState({
     title: ``,
   })
-  const path = useHistory().location.pathname
+  const path = useLocation().pathname
   const { title, isReturnPossible } = headerProps
 
   return (
     <>
       <PageHeader
         title={title}
+        className={styles.header}
         backIcon={
           isReturnPossible ? (
             <Link to="." style={{ color: `inherit` }}>

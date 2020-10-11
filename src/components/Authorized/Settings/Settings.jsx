@@ -113,31 +113,6 @@ const Settings = () => {
       <Button block size="large">
         Сбросить пароль
       </Button>
-      <Divider orientation="left">Организация</Divider>
-      <Form.Item
-        label="Фото профиля"
-        name="photo"
-        valuePropName="fileList"
-        rules={[{ message: `выберите фото профиля` }]}
-      >
-        <Upload>
-          <Button icon={<UploadOutlined />} size="large">
-            Загрузить фотографию
-          </Button>
-        </Upload>
-      </Form.Item>
-      <Form.Item
-        label="Название"
-        name="organizationName"
-        rules={[{ required: true, message: `Введите название организации` }]}
-      >
-        <Input placeholder="ИТМО" size="large" />
-      </Form.Item>
-      <Divider />
-      <Button block type="primary" size="large">
-        Сохранить
-      </Button>
-      <Divider orientation="left">Здания</Divider>
       <Divider orientation="left">Рассылка</Divider>
       <Form.Item
         label="E-mail для рассылки"

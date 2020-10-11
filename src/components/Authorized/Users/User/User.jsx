@@ -68,10 +68,6 @@ const User = () => {
         <Select.Option value="Лестница">У лестницы</Select.Option>
         <Select.Option value="К505">Возле К505</Select.Option>
       </Select>
-      <Divider />
-      <Button block type="primary" size="large">
-        Сохранить
-      </Button>
     </div>
   )
 }

@@ -1,0 +1,25 @@
+.header {
+  position: fixed;
+  z-index: 2;
+  background: white;
+  width: 100%;
+  height: var(--headerHeight);
+
+  :global(.ant-tabs-nav)::before {
+    content: none;
+  }
+
+  :global(.ant-tabs-nav),
+  :global(.ant-page-header-heading-extra),
+  :global(.ant-page-header-heading-left) {
+    margin: 0;
+  }
+}
+
+.link {
+  color: inherit;
+}
+
+.wrapper {
+  padding: calc(var(--headerHeight) + 24px) 24px 24px;
+}

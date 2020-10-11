@@ -1,9 +1,18 @@
-.wrapper {
-  padding: 0 24px 24px;
-  display: grid;
-  grid-gap: 24px;
+.header {
+  position: fixed;
+  z-index: 1;
+  background: white;
+  width: 100%;
+  height: var(--headerHeight);
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .logout {
   margin-top: 24px !important;
+}
+
+.wrapper {
+  padding: calc(var(--headerHeight) + 24px) 24px 24px;
+  display: grid;
+  grid-gap: 24px;
 }

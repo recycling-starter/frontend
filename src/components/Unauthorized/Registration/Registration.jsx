@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, InputNumber, Button, PageHeader, Select } from 'antd'
+import { Form, Input, Button, PageHeader, Select } from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { PUBLIC_PATH } from '../../../config'
@@ -8,20 +8,7 @@ import styles from './registration.module.scss'
 const Registration = () => {
   return (
     <>
-      <PageHeader
-        title="Регистрация"
-        backIcon={
-          <Link
-            to={PUBLIC_PATH.LOGIN}
-            className={styles.registerLink}
-            style={{ color: `inherit` }}
-          >
-            <ArrowLeftOutlined />
-          </Link>
-        }
-        onBack={() => null}
-      />
-      <Form className={styles.wrapper}>
+      <Form>
         <Form.Item required label="Имя">
           <Input placeholder="Иван Иванович" size="large" />
         </Form.Item>
@@ -91,13 +78,6 @@ const Registration = () => {
         </Form.Item>
         <Form.Item required label="Расположение контейнера">
           <Input placeholder="Возле 312 аудитории" size="large" />
-        </Form.Item>
-        <Form.Item required label="Код контейнера">
-          <InputNumber
-            formatter={(value) => `# ${value}`}
-            className={styles.containerCode}
-            size="large"
-          />
         </Form.Item>
         <Form.Item>
           <Button
