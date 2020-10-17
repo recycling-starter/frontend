@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Drawer, Menu, PageHeader, Typography } from 'antd'
 import { ArrowLeftOutlined, MenuOutlined } from '@ant-design/icons'
 import PropTypes from 'prop-types'
 import { Link, useLocation } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { PRIVATE_PATH } from '../../config'
-import { logout } from '../Unauthorized/Login/loginActions'
+import { logout, getBuildings } from '../Unauthorized/unauthorizedActions'
 import styles from './authorized.module.scss'
 
 export const HeaderContext = React.createContext({})
@@ -19,6 +19,11 @@ const Authorized = (props) => {
   })
   const path = useLocation().pathname
   const { title, isReturnPossible } = headerProps
+  const { isAdmin } = useSelector((state) => state.session)
+
+  useEffect(() => {
+    dispatch(getBuildings())
+  }, [dispatch])
 
   return (
     <>
@@ -50,24 +55,42 @@ const Authorized = (props) => {
               Контейнеры
             </Link>
           </Menu.Item>
-          <Menu.Item key="users">
-            <Link to={PRIVATE_PATH.USERS} onClick={() => setShowDrawer(false)}>
-              Пользователи
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="settings">
-            <Link
-              to={PRIVATE_PATH.SETTINGS}
-              onClick={() => setShowDrawer(false)}
-            >
-              Настройки
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="calls">
-            <Link to={PRIVATE_PATH.CALLS} onClick={() => setShowDrawer(false)}>
-              Вызовы
-            </Link>
-          </Menu.Item>
+          {isAdmin && (
+            <>
+              <Menu.Item key="users">
+                <Link
+                  to={PRIVATE_PATH.USERS}
+                  onClick={() => setShowDrawer(false)}
+                >
+                  Пользователи
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="settings">
+                <Link
+                  to={PRIVATE_PATH.SETTINGS}
+                  onClick={() => setShowDrawer(false)}
+                >
+                  Настройки
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="calls">
+                <Link
+                  to={PRIVATE_PATH.CALLS}
+                  onClick={() => setShowDrawer(false)}
+                >
+                  Вызовы
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="create_box">
+                <Link
+                  to={PRIVATE_PATH.CREATE_BOX}
+                  onClick={() => setShowDrawer(false)}
+                >
+                  Создать контейнер
+                </Link>
+              </Menu.Item>
+            </>
+          )}
           <Menu.Item
             key="logout"
             className={styles.logout}

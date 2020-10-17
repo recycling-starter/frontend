@@ -15,4 +15,5 @@ export const PRIVATE_PATH = {
   CALLS: `/calls`,
   CALL: `/calls/:id`,
   SETTINGS: `/settings`,
+  CREATE_BOX: `/create_box`,
 }

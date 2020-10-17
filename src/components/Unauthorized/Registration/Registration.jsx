@@ -1,18 +1,43 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Form, Input, Button, Select } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
+import { getBuildings } from '../unauthorizedActions'
 import styles from './registration.module.scss'
 
 const Registration = () => {
+  const dispatch = useDispatch()
+  const { buildings } = useSelector((state) => state.session)
+
+  useEffect(() => {
+    dispatch(getBuildings())
+  }, [dispatch])
+
+  const handleFinish = (values) => {
+    console.log(values)
+  }
+
   return (
     <>
-      <Form>
-        <Form.Item required label="Имя">
+      <Form onFinish={handleFinish}>
+        <Form.Item
+          label="Имя"
+          name="first_name"
+          rules={[{ required: true, message: `Введите имя` }]}
+        >
           <Input placeholder="Иван Иванович" size="large" />
         </Form.Item>
-        <Form.Item required label="E-mail">
+        <Form.Item
+          label="E-mail"
+          name="email"
+          rules={[{ required: true, message: `Введите E-mail` }]}
+        >
           <Input placeholder="ivanovich@mail.com" type="email" size="large" />
         </Form.Item>
-        <Form.Item required label="Телефон">
+        <Form.Item
+          label="Телефон"
+          name="phone"
+          rules={[{ required: true, message: `Введите номер телефона` }]}
+        >
           <Input placeholder="+7 (912) 345 67 89" type="phone" size="large" />
         </Form.Item>
         <Form.Item
@@ -50,7 +75,12 @@ const Registration = () => {
         >
           <Input.Password placeholder="••••••••" size="large" />
         </Form.Item>
-        <Form.Item required label="Здание">
+        <Form.Item
+          required
+          label="Здание"
+          name="building"
+          rules={[{ required: true, message: `Выберите здание` }]}
+        >
           <Select
             showSearch
             placeholder="Выберите здание"
@@ -64,17 +94,20 @@ const Registration = () => {
             }
             size="large"
           >
-            <Select.Option value="Биржевая линия 14-16">
-              Биржевая линия 14-16
-            </Select.Option>
-            <Select.Option value="Ломоносова 9">Ломоносова 9</Select.Option>
-            <Select.Option value="Кронверкский проспект 49">
-              Кронверкский проспект 49
-            </Select.Option>
+            {buildings.map((building) => (
+              <Select.Option value={building.id} key={building.id}>
+                {building.address}
+              </Select.Option>
+            ))}
           </Select>
         </Form.Item>
-        <Form.Item required label="Расположение контейнера">
-          <Input placeholder="Возле 312 аудитории" size="large" />
+        <Form.Item
+          required
+          label="Ваше расположение"
+          name="room"
+          rules={[{ required: true, message: `Введите ваше расположение` }]}
+        >
+          <Input placeholder="Кабинет 312" size="large" />
         </Form.Item>
         <Form.Item>
           <Button

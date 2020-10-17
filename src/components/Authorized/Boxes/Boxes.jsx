@@ -1,34 +1,40 @@
 import React, { useEffect, useContext } from 'react'
 import { Select } from 'antd'
 import { Link, useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { HeaderContext } from '../Authorized'
 import BoxCard from './BoxCard'
+import { getBoxes } from './boxesActions'
 
 const Boxes = () => {
+  const dispatch = useDispatch()
   const history = useHistory()
   const setHeaderProps = useContext(HeaderContext)
+  const { buildings } = useSelector((state) => state.session)
+  const { boxes } = useSelector((state) => state.boxes)
 
   useEffect(() => {
     setHeaderProps({ title: `Контейнеры` })
   }, [setHeaderProps])
 
+  useEffect(() => {
+    dispatch(getBoxes())
+  }, [dispatch])
+
   return (
     <>
       <Select size="large" placeholder="Выберите здание">
-        <Select.Option value="Биржевая линия 14-16">
-          Биржевая линия 14-16
-        </Select.Option>
-        <Select.Option value="Ломоносова 9">Ломоносова 9</Select.Option>
-        <Select.Option value="Кронверкский проспект 49">
-          Кронверкский проспект 49
-        </Select.Option>
+        {buildings.map((building) => (
+          <Select.Option value={building.id} key={building.id}>
+            {building.address}
+          </Select.Option>
+        ))}
       </Select>
-      <Link to={`${history.location.pathname}/837263`}>
-        <BoxCard />
-      </Link>
-      <Link to={`${history.location.pathname}/837263`}>
-        <BoxCard />
-      </Link>
+      {boxes.map((box) => (
+        <Link to={`${history.location.pathname}/${box.id}`} key={box.id}>
+          <BoxCard fullness={box.fullness} room={box.room} id={box.id} />
+        </Link>
+      ))}
     </>
   )
 }

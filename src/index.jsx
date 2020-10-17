@@ -9,8 +9,9 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { createAPI } from './api'
 import App from './App'
 import './index.scss'
-import LoginAction from './components/Unauthorized/Login/loginActions'
-import loginReducer from './components/Unauthorized/Login/loginReducer'
+import LoginAction from './components/Unauthorized/unauthorizedActions'
+import unauthorizedReducer from './components/Unauthorized/unauthorizedReducer'
+import boxesReducer from './components/Authorized/Boxes/boxesReducer'
 
 const onUnauthorized = () => {
   store.dispatch({ type: LoginAction.LOG_OUT })
@@ -18,7 +19,10 @@ const onUnauthorized = () => {
 
 const api = createAPI(onUnauthorized)
 
-const reducer = combineReducers({ session: loginReducer })
+const reducer = combineReducers({
+  session: unauthorizedReducer,
+  boxes: boxesReducer,
+})
 
 const store = createStore(
   reducer,

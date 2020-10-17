@@ -5,7 +5,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { useDispatch } from 'react-redux'
 import { PUBLIC_PATH } from '../../../config'
 import styles from './login.module.scss'
-import { login } from './loginActions'
+import { login } from '../unauthorizedActions'
 
 const Login = () => {
   const dispatch = useDispatch()

@@ -1,4 +1,4 @@
-import LoginAction from './loginActions'
+import UnauthorizedAction from './unauthorizedActions'
 
 const initialState = {
   isAdmin: undefined,
@@ -9,17 +9,20 @@ const initialState = {
   phone: null,
   room: ``,
   organization: null,
+  buildings: [],
 }
 
-const loginReducer = (state = initialState, action) => {
+const unauthorizedReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LoginAction.LOG_IN:
+    case UnauthorizedAction.LOG_IN:
       return { ...state, ...action.payload, isAuthorized: true }
-    case LoginAction.GET_DATA:
+    case UnauthorizedAction.SET_BUILDINGS:
+      return { ...state, buildings: action.payload }
+    case UnauthorizedAction.GET_DATA:
       return { ...state, ...action.payload, isAuthorized: true }
     default:
       return state
   }
 }
 
-export default loginReducer
+export default unauthorizedReducer

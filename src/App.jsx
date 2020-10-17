@@ -14,7 +14,8 @@ import Settings from './components/Authorized/Settings'
 import Calls from './components/Authorized/Calls'
 import Call from './components/Authorized/Calls/Call'
 import Unauthorized from './components/Unauthorized'
-import { getUserData } from './components/Unauthorized/Login/loginActions'
+import { getUserData } from './components/Unauthorized/unauthorizedActions'
+import CreateBox from './components/Authorized/CreateBox'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -41,6 +42,9 @@ const App = () => {
           </Route>
           <Route exact path={PRIVATE_PATH.BOX}>
             <Box />
+          </Route>
+          <Route exact path={PRIVATE_PATH.CREATE_BOX}>
+            <CreateBox />
           </Route>
           <Route exact path={PRIVATE_PATH.USERS}>
             <Users />
