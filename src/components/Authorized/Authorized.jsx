@@ -3,13 +3,16 @@ import { Drawer, Menu, PageHeader, Typography } from 'antd'
 import { ArrowLeftOutlined, MenuOutlined } from '@ant-design/icons'
 import PropTypes from 'prop-types'
 import { Link, useLocation } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { PRIVATE_PATH } from '../../config'
+import { logout } from '../Unauthorized/Login/loginActions'
 import styles from './authorized.module.scss'
 
 export const HeaderContext = React.createContext({})
 
 const Authorized = (props) => {
-  const { children, setAuthorized } = props
+  const { children } = props
+  const dispatch = useDispatch()
   const [showDrawer, setShowDrawer] = useState(false)
   const [headerProps, setHeaderProps] = useState({
     title: ``,
@@ -68,10 +71,7 @@ const Authorized = (props) => {
           <Menu.Item
             key="logout"
             className={styles.logout}
-            onClick={() => {
-              setShowDrawer(false)
-              setAuthorized(false)
-            }}
+            onClick={() => dispatch(logout())}
           >
             <Typography.Text type="danger">Выход</Typography.Text>
           </Menu.Item>

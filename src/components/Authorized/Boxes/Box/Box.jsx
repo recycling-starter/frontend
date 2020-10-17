@@ -46,11 +46,11 @@ const Box = () => {
         <div className={styles.buttons}>
           <Button
             icon={<MinusOutlined />}
-            onClick={() => handleChangeFilling(-10)}
+            onClick={() => handleChangeFilling(-20)}
           />
           <Button
             icon={<PlusOutlined />}
-            onClick={() => handleChangeFilling(10)}
+            onClick={() => handleChangeFilling(20)}
           />
         </div>
         <p className={styles.text}>Изменение заполненности контейнера</p>
