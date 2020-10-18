@@ -1,14 +1,14 @@
 import React, { useEffect, useContext } from 'react'
 import { Select } from 'antd'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { HeaderContext } from '../Authorized'
+import { PRIVATE_PATH } from '../../../config'
 import BoxCard from './BoxCard'
 import { getBoxes } from './boxesActions'
 
 const Boxes = () => {
   const dispatch = useDispatch()
-  const history = useHistory()
   const setHeaderProps = useContext(HeaderContext)
   const { buildings } = useSelector((state) => state.session)
   const { boxes } = useSelector((state) => state.boxes)
@@ -31,7 +31,7 @@ const Boxes = () => {
         ))}
       </Select>
       {boxes.map((box) => (
-        <Link to={`${history.location.pathname}/${box.id}`} key={box.id}>
+        <Link to={`${PRIVATE_PATH.BOXES}/${box.id}`} key={box.id}>
           <BoxCard fullness={box.fullness} room={box.room} id={box.id} />
         </Link>
       ))}

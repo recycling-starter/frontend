@@ -1,8 +1,9 @@
 import React, { useEffect, useContext } from 'react'
 import { Button, Divider, Form, Input, Select } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import { HeaderContext } from '../Authorized'
-import { getBoxes, postBox } from '../Boxes/boxesActions'
+import { HeaderContext } from '../../Authorized'
+import { getBoxes, postBox } from '../boxesActions'
+import { PRIVATE_PATH } from '../../../../config'
 
 const CreateBox = () => {
   const dispatch = useDispatch()
@@ -19,8 +20,9 @@ const CreateBox = () => {
     dispatch(getBoxes())
   }, [dispatch])
 
-  const handleFinish = (values) => {
-    dispatch(postBox(values))
+  const handleFinish = async (values) => {
+    const { id } = await dispatch(postBox(values))
+    window.location.href = `${PRIVATE_PATH.BOXES}/${id}`
   }
 
   return (

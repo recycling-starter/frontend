@@ -5,32 +5,31 @@ const Error = {
   UNAUTHORIZED: 401,
 }
 
-export const createAPI = (onUnauthorized) => {
-  const token = localStorage.getItem(`token`)
+const token = localStorage.getItem(`token`)
 
-  const api = axios.create({
-    baseURL: `${HOST}/v1`,
-    headers: {
-      Authorization: token ? `Bearer ${token}` : undefined,
-    },
-  })
+const api = axios.create({
+  baseURL: `${HOST}/v1`,
+  headers: {
+    Authorization: token ? `Bearer ${token}` : undefined,
+  },
+})
 
-  const onSuccess = (response) => {
-    return response
-  }
+const onSuccess = (response) => {
+  return response
+}
 
-  const onFail = (err) => {
-    const { response } = err
+const onFail = (err) => {
+  const { response } = err
 
-    if (response.status === Error.UNAUTHORIZED) {
-      onUnauthorized()
-      throw err
-    }
-
+  if (response.status === Error.UNAUTHORIZED) {
+    localStorage.clear()
+    window.location.reload()
     throw err
   }
 
-  api.interceptors.response.use(onSuccess, onFail)
-
-  return api
+  throw err
 }
+
+api.interceptors.response.use(onSuccess, onFail)
+
+export default api

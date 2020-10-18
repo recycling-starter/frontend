@@ -6,22 +6,17 @@ import { createStore, applyMiddleware, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { createAPI } from './api'
+import api from './api'
 import App from './App'
 import './index.scss'
-import LoginAction from './components/Unauthorized/unauthorizedActions'
 import unauthorizedReducer from './components/Unauthorized/unauthorizedReducer'
 import boxesReducer from './components/Authorized/Boxes/boxesReducer'
-
-const onUnauthorized = () => {
-  store.dispatch({ type: LoginAction.LOG_OUT })
-}
-
-const api = createAPI(onUnauthorized)
+import callsReducer from './components/Authorized/Calls/callsReducer'
 
 const reducer = combineReducers({
   session: unauthorizedReducer,
   boxes: boxesReducer,
+  calls: callsReducer,
 })
 
 const store = createStore(

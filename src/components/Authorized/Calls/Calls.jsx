@@ -1,16 +1,25 @@
 import React, { useContext, useEffect } from 'react'
 import { Select } from 'antd'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { HeaderContext } from '../Authorized'
+import { PRIVATE_PATH } from '../../../config'
 import CallCard from './CallCard'
+import { getCalls } from './callsActions'
 
 const Calls = () => {
-  const history = useHistory()
+  const dispatch = useDispatch()
   const setHeaderProps = useContext(HeaderContext)
+  const { calls } = useSelector((state) => state.calls)
 
   useEffect(() => {
     setHeaderProps({ title: `Вызовы` })
   }, [setHeaderProps])
+
+  useEffect(() => {
+    dispatch(getCalls())
+  }, [dispatch])
+
   return (
     <>
       <Select size="large" placeholder="Выберите здание">
@@ -22,9 +31,15 @@ const Calls = () => {
           Кронверкский проспект 49
         </Select.Option>
       </Select>
-      <Link to={`${history.location.pathname}/837263`}>
-        <CallCard />
-      </Link>
+      {calls.map((call) => (
+        <Link to={`${PRIVATE_PATH.CALLS}/${call.id}`} key={call.id}>
+          <CallCard
+            time={call.datetime_call}
+            isDropped={call.is_dropped}
+            address={call.building.address}
+          />
+        </Link>
+      ))}
     </>
   )
 }

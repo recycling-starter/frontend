@@ -1,5 +1,3 @@
-import { PRIVATE_PATH } from '../../../config'
-
 const BoxesAction = {
   SET_BOXES: `SET_BOXES`,
   SET_BOX: `SET_BOX`,
@@ -42,12 +40,7 @@ export const putBox = (id, values) => (dispatch, getState, api) => {
 }
 
 export const postBox = (values) => (dispatch, getState, api) => {
-  return api
-    .post(`/boxes/`, values)
-    .then((response) => response.data)
-    .then(({ id }) => {
-      window.location.pathname = `${PRIVATE_PATH.BOXES}/${id}`
-    })
+  return api.post(`/boxes/`, values).then((response) => response.data)
 }
 
 export const deleteBox = (id) => (dispatch, getState, api) => {

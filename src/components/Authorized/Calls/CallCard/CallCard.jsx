@@ -1,16 +1,22 @@
 import { Card, Typography } from 'antd'
 import React from 'react'
+import moment from 'moment'
 
-const CallCard = () => {
+const CallCard = (props) => {
+  const { time, isDropped, address } = props
+
   return (
-    <Card title="09.10.2020">
+    <Card
+      title={moment(time).format(`DD.MM.YYYY`)}
+      extra={isDropped && <Typography>Завершён</Typography>}
+    >
       <Typography.Paragraph>
         <Typography.Text>Адрес: </Typography.Text>
         <Typography.Text
           copyable={{ tooltips: [`Скопировать`, `Скопировано`] }}
           onClick={(evt) => evt.preventDefault()}
         >
-          Биржевая 14
+          {address}
         </Typography.Text>
       </Typography.Paragraph>
     </Card>
