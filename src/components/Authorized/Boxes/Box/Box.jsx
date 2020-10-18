@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+import { useHistory, useParams } from 'react-router'
 import {
   Progress,
   Button,
@@ -13,14 +13,22 @@ import {
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { HeaderContext } from '../../Authorized'
-import { getBox, putBox } from '../boxesActions'
+import {
+  deleteBox,
+  deleteUserFromBox,
+  getAvailableUsers,
+  getBox,
+  postUserToBox,
+  putBox,
+} from '../boxesActions'
 import styles from './box.module.scss'
 
 const Box = () => {
   const dispatch = useDispatch()
   const setHeaderProps = useContext(HeaderContext)
+  const history = useHistory()
   const { id } = useParams()
-  const { box } = useSelector((state) => state.boxes)
+  const { box, availableUsers } = useSelector((state) => state.boxes)
   const [filling, setFilling] = useState(0)
 
   useEffect(() => {
@@ -38,12 +46,21 @@ const Box = () => {
     if (box) setFilling(box.fullness)
   }, [setFilling, box])
 
+  useEffect(() => {
+    dispatch(getAvailableUsers(id))
+  }, [id, dispatch])
+
   const handleFinish = (values) => {
     dispatch(putBox(id, { ...values, fullness: filling }))
   }
 
   const handleChangeFilling = (delta) => {
     setFilling(Math.max(0, Math.min(100, filling + delta)))
+  }
+
+  const handleDeleteBox = async () => {
+    await dispatch(deleteBox(id))
+    history.push(`./`)
   }
 
   return box ? (
@@ -90,7 +107,16 @@ const Box = () => {
             key={user.id}
             title={user.first_name}
             className={styles.card}
-            extra={<Button danger>Удалить</Button>}
+            extra={
+              <Button
+                danger
+                onClick={() =>
+                  dispatch(deleteUserFromBox({ user: user.id, id }))
+                }
+              >
+                Удалить
+              </Button>
+            }
           >
             Локация: {user.room.toLowerCase()}
           </Card>
@@ -99,9 +125,18 @@ const Box = () => {
           size="large"
           placeholder="Добавить ответственного из здания"
           className={styles.select}
+          onChange={(user) => dispatch(postUserToBox({ user, id }))}
         >
-          <Select.Option value="Лестница">Иван Иванович – К505</Select.Option>
+          {availableUsers.map((user) => (
+            <Select.Option value={user.id} key={user.id}>
+              {user.first_name} – {user.room.toLowerCase()}
+            </Select.Option>
+          ))}
         </Select>
+        <Divider />
+        <Button block danger size="large" onClick={handleDeleteBox}>
+          Удалить коробку
+        </Button>
       </Form>
     </div>
   ) : null

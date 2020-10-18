@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { HOST } from './config'
 
 const Error = {
   UNAUTHORIZED: 401,
@@ -8,7 +9,7 @@ export const createAPI = (onUnauthorized) => {
   const token = localStorage.getItem(`token`)
 
   const api = axios.create({
-    baseURL: `/v1`,
+    baseURL: `${HOST}/v1`,
     headers: {
       Authorization: token ? `Bearer ${token}` : undefined,
     },

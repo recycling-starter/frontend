@@ -57,20 +57,20 @@ const Authorized = (props) => {
           </Menu.Item>
           {isAdmin && (
             <>
+              <Menu.Item key="create_box">
+                <Link
+                  to={PRIVATE_PATH.CREATE_BOX}
+                  onClick={() => setShowDrawer(false)}
+                >
+                  Создать контейнер
+                </Link>
+              </Menu.Item>
               <Menu.Item key="users">
                 <Link
                   to={PRIVATE_PATH.USERS}
                   onClick={() => setShowDrawer(false)}
                 >
                   Пользователи
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="settings">
-                <Link
-                  to={PRIVATE_PATH.SETTINGS}
-                  onClick={() => setShowDrawer(false)}
-                >
-                  Настройки
                 </Link>
               </Menu.Item>
               <Menu.Item key="calls">
@@ -81,16 +81,16 @@ const Authorized = (props) => {
                   Вызовы
                 </Link>
               </Menu.Item>
-              <Menu.Item key="create_box">
-                <Link
-                  to={PRIVATE_PATH.CREATE_BOX}
-                  onClick={() => setShowDrawer(false)}
-                >
-                  Создать контейнер
-                </Link>
-              </Menu.Item>
             </>
           )}
+          <Menu.Item key="settings">
+            <Link
+              to={PRIVATE_PATH.SETTINGS}
+              onClick={() => setShowDrawer(false)}
+            >
+              Настройки
+            </Link>
+          </Menu.Item>
           <Menu.Item
             key="logout"
             className={styles.logout}

@@ -1,4 +1,4 @@
-export const HOST = `http://api.recyclingstarter.ru/`
+export const HOST = `https://api.recyclingstarter.ru`
 
 export const PUBLIC_PATH = {
   LOGIN: `/login`,
