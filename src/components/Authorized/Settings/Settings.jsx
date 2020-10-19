@@ -10,6 +10,7 @@ import {
 } from 'antd'
 import moment from 'moment'
 import { HeaderContext } from '../Authorized'
+import styles from './settings.module.scss'
 
 const Settings = () => {
   const setHeaderProps = useContext(HeaderContext)
@@ -19,7 +20,7 @@ const Settings = () => {
   }, [setHeaderProps])
 
   return (
-    <Form>
+    <Form layout="vertical" className={styles.wrapper}>
       <Divider orientation="left">Профиль</Divider>
       <Form.Item
         label="Имя"

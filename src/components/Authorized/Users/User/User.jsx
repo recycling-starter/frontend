@@ -14,7 +14,7 @@ const User = () => {
   }, [setHeaderProps])
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <Divider orientation="left">Информация</Divider>
       <Typography.Paragraph>
         <Typography.Text>E-mail: </Typography.Text>

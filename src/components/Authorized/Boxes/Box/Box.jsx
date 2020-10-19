@@ -12,6 +12,7 @@ import {
 } from 'antd'
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux'
+import { useMediaQuery } from 'react-responsive'
 import { HeaderContext } from '../../Authorized'
 import {
   deleteBox,
@@ -28,6 +29,7 @@ const Box = () => {
   const setHeaderProps = useContext(HeaderContext)
   const history = useHistory()
   const { id } = useParams()
+  const isDesktop = useMediaQuery({ minDeviceWidth: 1224 })
   const { box, availableUsers } = useSelector((state) => state.boxes)
   const [filling, setFilling] = useState(0)
 
@@ -64,25 +66,28 @@ const Box = () => {
   }
 
   return box ? (
-    <div>
+    <div className={styles.wrapper}>
       <Typography.Title level={4}>
         {box.building.address}, {box.room.toLowerCase()}
       </Typography.Title>
       <Divider />
-      <Form onFinish={handleFinish}>
+      <Form layout="vertical" onFinish={handleFinish}>
         <Progress
-          width="50vw"
-          type="circle"
+          width={!isDesktop && `50vw`}
+          type={isDesktop ? `line` : `circle`}
           percent={filling}
-          className={styles.circle}
+          status="active"
+          className={!isDesktop && styles.circle}
         />
         <Divider />
         <div className={styles.buttons}>
           <Button
+            size="large"
             icon={<MinusOutlined />}
             onClick={() => handleChangeFilling(-20)}
           />
           <Button
+            size="large"
             icon={<PlusOutlined />}
             onClick={() => handleChangeFilling(20)}
           />
@@ -135,7 +140,7 @@ const Box = () => {
         </Select>
         <Divider />
         <Button block danger size="large" onClick={handleDeleteBox}>
-          Удалить коробку
+          Удалить контейнер
         </Button>
       </Form>
     </div>

@@ -1,9 +1,10 @@
 import React, { useEffect, useContext } from 'react'
 import { Button, Divider, Form, Input, Select } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import { HeaderContext } from '../../Authorized'
-import { getBoxes, postBox } from '../boxesActions'
-import { PRIVATE_PATH } from '../../../../config'
+import { HeaderContext } from '../Authorized'
+import { getBoxes, postBox } from '../Boxes/boxesActions'
+import { PRIVATE_PATH } from '../../../config'
+import styles from './createBox.module.scss'
 
 const CreateBox = () => {
   const dispatch = useDispatch()
@@ -26,7 +27,7 @@ const CreateBox = () => {
   }
 
   return (
-    <Form onFinish={handleFinish}>
+    <Form layout="vertical" className={styles.wrapper} onFinish={handleFinish}>
       <Divider orientation="left">Настройки</Divider>
       <Form.Item
         label="Здание"

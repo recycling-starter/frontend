@@ -15,7 +15,7 @@ import Calls from './components/Authorized/Calls'
 import Call from './components/Authorized/Calls/Call'
 import Unauthorized from './components/Unauthorized'
 import { getUserData } from './components/Unauthorized/unauthorizedActions'
-import CreateBox from './components/Authorized/Boxes/CreateBox'
+import CreateBox from './components/Authorized/CreateBox'
 
 const App = () => {
   const dispatch = useDispatch()

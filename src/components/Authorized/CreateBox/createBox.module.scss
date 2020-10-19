@@ -1,18 +1,13 @@
-.card {
-  margin-bottom: 24px;
-}
-
-.select {
-  width: 100%;
-}
-
 .wrapper {
-  
 }
 
 @media (min-width: 1224px) {
   .wrapper {
     width: 60%;
     margin: auto;
+
+    :global(.ant-divider-with-text):not(:first-child) {
+      margin-top: 50px;
+    }
   }
 }

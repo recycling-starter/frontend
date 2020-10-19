@@ -4,8 +4,8 @@ import { Form, Input, Button } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { useDispatch } from 'react-redux'
 import { PUBLIC_PATH } from '../../../config'
-import styles from './login.module.scss'
 import { login } from '../unauthorizedActions'
+import styles from './login.module.scss'
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -46,7 +46,7 @@ const Login = () => {
             size="large"
           />
         </Form.Item>
-        <Form.Item>
+        <Form.Item className={styles.buttons}>
           <Button
             type="primary"
             size="large"

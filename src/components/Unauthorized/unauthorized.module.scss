@@ -23,3 +23,11 @@
 .wrapper {
   padding: calc(var(--headerHeight) + 24px) 24px 24px;
 }
+
+@media (min-width: 1224px) {
+  .wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding-top: 200px;
+  }
+}

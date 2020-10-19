@@ -18,7 +18,7 @@ const Registration = () => {
 
   return (
     <>
-      <Form onFinish={handleFinish}>
+      <Form className={styles.wrapper} onFinish={handleFinish}>
         <Form.Item
           label="Имя"
           name="first_name"
@@ -109,7 +109,7 @@ const Registration = () => {
         >
           <Input placeholder="Кабинет 312" size="large" />
         </Form.Item>
-        <Form.Item>
+        <Form.Item className={styles.buttons}>
           <Button
             type="primary"
             htmlType="submit"

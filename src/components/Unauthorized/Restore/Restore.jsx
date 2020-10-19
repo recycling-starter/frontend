@@ -7,14 +7,14 @@ import styles from './restore.module.scss'
 const Restore = () => {
   return (
     <Form className={styles.wrapper}>
-      <Typography.Text>
+      <Typography.Text className={styles.text}>
         Пожалуйста, укажите e-mail, который Вы раннее использовали для входа
       </Typography.Text>
       <Divider />
       <Form.Item label="E-mail">
         <Input placeholder="ivanovich@mail.com" type="email" size="large" />
       </Form.Item>
-      <Form.Item>
+      <Form.Item className={styles.buttons}>
         <Button
           type="primary"
           htmlType="submit"
@@ -24,7 +24,7 @@ const Restore = () => {
           Отправить ссылку
         </Button>
       </Form.Item>
-      <Form.Item>
+      <Form.Item className={styles.buttons}>
         <Button className={styles.button} size="large">
           <Link to={PUBLIC_PATH.LOGIN}>На страницу входа</Link>
         </Button>
