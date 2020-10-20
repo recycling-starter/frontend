@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react'
-import { Button, Divider, Form, Input, Select } from 'antd'
+import { Button, Divider, Form, Input, message, Select } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
 import { HeaderContext } from '../Authorized'
 import { getBoxes, postBox } from '../Boxes/boxesActions'
 import { PRIVATE_PATH } from '../../../config'
@@ -9,6 +10,7 @@ import styles from './createBox.module.scss'
 const CreateBox = () => {
   const dispatch = useDispatch()
   const setHeaderProps = useContext(HeaderContext)
+  const history = useHistory()
   const { buildings } = useSelector((state) => state.session)
 
   useEffect(() => {
@@ -23,7 +25,8 @@ const CreateBox = () => {
 
   const handleFinish = async (values) => {
     const { id } = await dispatch(postBox(values))
-    window.location.href = `${PRIVATE_PATH.BOXES}/${id}`
+    message.success(`Контейнер создан`)
+    history.push(`${PRIVATE_PATH.BOXES}/${id}`)
   }
 
   return (

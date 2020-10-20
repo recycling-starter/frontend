@@ -1,5 +1,13 @@
 import React, { useContext, useEffect } from 'react'
-import { Button, Divider, Form, Input, InputNumber, Select } from 'antd'
+import {
+  Button,
+  Divider,
+  Form,
+  Input,
+  InputNumber,
+  message,
+  Select,
+} from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { HeaderContext } from '../Authorized'
 import styles from './settings.module.scss'
@@ -9,7 +17,7 @@ const Settings = () => {
   const dispatch = useDispatch()
   const setHeaderProps = useContext(HeaderContext)
   const { organization } = useSelector((state) => state.settings)
-  const { name, phone, buildings, building, room } = useSelector(
+  const { name, phone, buildings, building, room, isAdmin } = useSelector(
     (state) => state.session,
   )
 
@@ -18,12 +26,16 @@ const Settings = () => {
   }, [setHeaderProps])
 
   useEffect(() => {
-    dispatch(getOrganization())
-  }, [dispatch])
+    if (isAdmin) dispatch(getOrganization())
+  }, [dispatch, isAdmin])
 
-  const handleUpdateOrganization = (values) => {
-    console.log(values)
-    dispatch(putOrganization(values))
+  const handleUpdateOrganization = async (values) => {
+    try {
+      await dispatch(putOrganization(values))
+      message.success(`Настройки организации сохранены`)
+    } catch {
+      message.error(`Ошибка при сохранении настроек`)
+    }
   }
 
   return (

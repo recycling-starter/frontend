@@ -9,6 +9,7 @@ import {
   Select,
   Form,
   Input,
+  message,
 } from 'antd'
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux'
@@ -31,6 +32,7 @@ const Box = () => {
   const { id } = useParams()
   const isDesktop = useMediaQuery({ minDeviceWidth: 1224 })
   const { box, availableUsers } = useSelector((state) => state.boxes)
+  const { isAdmin } = useSelector((state) => state.session)
   const [filling, setFilling] = useState(0)
 
   useEffect(() => {
@@ -52,8 +54,9 @@ const Box = () => {
     dispatch(getAvailableUsers(id))
   }, [id, dispatch])
 
-  const handleFinish = (values) => {
-    dispatch(putBox(id, { ...values, fullness: filling }))
+  const handleFinish = async (values) => {
+    await dispatch(putBox(id, { ...values, fullness: filling }))
+    message.success(`Данные сохранены`)
   }
 
   const handleChangeFilling = (delta) => {
@@ -62,13 +65,20 @@ const Box = () => {
 
   const handleDeleteBox = async () => {
     await dispatch(deleteBox(id))
+    message.warn(`Контейнер удален`)
     history.push(`./`)
   }
 
   const handleDeleteUserFromBox = async (user) => {
     await dispatch(deleteUserFromBox({ user, id }))
+    message.warn(`Ответственный пользователь удалён`)
     dispatch(getBox(id))
     dispatch(getAvailableUsers(id))
+  }
+
+  const handleAddUserToBox = async (user) => {
+    await dispatch(postUserToBox({ user, id }))
+    message.success(`Ответственный пользователь добавлен`)
   }
 
   if (!box) return null
@@ -113,37 +123,44 @@ const Box = () => {
           Сохранить
         </Button>
         <Divider />
-        <Divider>Ответственные</Divider>
-        {box.users.map((user) => (
-          <Card
-            key={user.id}
-            title={user.first_name}
-            className={styles.card}
-            extra={
-              <Button danger onClick={() => handleDeleteUserFromBox(user.id)}>
-                Удалить
-              </Button>
-            }
-          >
-            Локация: {user.room.toLowerCase()}
-          </Card>
-        ))}
-        <Select
-          size="large"
-          value="Добавить ответственного из здания"
-          className={styles.select}
-          onChange={(user) => dispatch(postUserToBox({ user, id }))}
-        >
-          {availableUsers.map((user) => (
-            <Select.Option value={user.id} key={user.id}>
-              {user.first_name} – {user.room.toLowerCase()}
-            </Select.Option>
-          ))}
-        </Select>
-        <Divider />
-        <Button block danger size="large" onClick={handleDeleteBox}>
-          Удалить контейнер
-        </Button>
+        {isAdmin && (
+          <>
+            <Divider>Ответственные</Divider>
+            {box.users.map((user) => (
+              <Card
+                key={user.id}
+                title={user.first_name}
+                className={styles.card}
+                extra={
+                  <Button
+                    danger
+                    onClick={() => handleDeleteUserFromBox(user.id)}
+                  >
+                    Удалить
+                  </Button>
+                }
+              >
+                Локация: {user.room.toLowerCase()}
+              </Card>
+            ))}
+            <Select
+              size="large"
+              value="Добавить ответственного из здания"
+              className={styles.select}
+              onChange={handleAddUserToBox}
+            >
+              {availableUsers.map((user) => (
+                <Select.Option value={user.id} key={user.id}>
+                  {user.first_name} – {user.room.toLowerCase()}
+                </Select.Option>
+              ))}
+            </Select>
+            <Divider />
+            <Button block danger size="large" onClick={handleDeleteBox}>
+              Удалить контейнер
+            </Button>
+          </>
+        )}
       </Form>
     </div>
   )

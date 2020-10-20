@@ -1,19 +1,33 @@
-import React, { useEffect } from 'react'
-import { Form, Input, Button, Select } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { Form, Input, Button, Select, message } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import { getBuildings } from '../unauthorizedActions'
+import { getBuildings, login, postUser } from '../unauthorizedActions'
 import styles from './registration.module.scss'
 
 const Registration = () => {
   const dispatch = useDispatch()
   const { buildings } = useSelector((state) => state.session)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     dispatch(getBuildings())
   }, [dispatch])
 
-  const handleFinish = (values) => {
-    console.log(values)
+  const handleFinish = async (values) => {
+    const hide = message.loading(`Регистрация...`, 0)
+    setLoading(true)
+    try {
+      await dispatch(postUser(values))
+      hide()
+      message.success(
+        `Ссылка для подтверждения регистрации отправлена на ваш e-mail`,
+      )
+    } catch (e) {
+      hide()
+      if (e.email) message.error(`Пользователь с таким e-mail уже существует`)
+      if (e.phone) message.error(`Неверный формат номера телефона`)
+    }
+    setLoading(false)
   }
 
   return (
@@ -115,6 +129,7 @@ const Registration = () => {
             htmlType="submit"
             className={styles.submitButton}
             size="large"
+            loading={loading}
           >
             Зарегистрироваться
           </Button>

@@ -52,17 +52,10 @@ export const getBuildings = () => (dispatch, getState, api) => {
   })
 }
 
-export const register = (values) => (dispatch, getState, api) => {
-  return api
-    .post(`/users/auth/`, {})
-    .then((response) => response.data)
-    .then(({ token, is_admin }) => {
-      localStorage.setItem(`token`, token)
-      return dispatch({
-        type: UnauthorizedAction.LOG_IN,
-        payload: { isAdmin: is_admin },
-      })
-    })
+export const postUser = (values) => (dispatch, getState, api) => {
+  return api.post(`/users/`, values).catch(({ response }) => {
+    throw response.data
+  })
 }
 
 export const logout = () => () => {

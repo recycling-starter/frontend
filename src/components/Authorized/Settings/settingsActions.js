@@ -1,5 +1,5 @@
 const SettingsAction = {
-  SET_ORGANIZATION: `SET_BOXES`,
+  SET_ORGANIZATION: `SET_ORGANIZATION`,
 }
 
 export default SettingsAction
