@@ -6,8 +6,8 @@ const BoxesAction = {
 
 export default BoxesAction
 
-export const getBoxes = () => (dispatch, getState, api) => {
-  return api.get(`/boxes/`).then((response) => {
+export const getBoxes = (building) => (dispatch, getState, api) => {
+  return api.get(`/boxes/`, { params: { building } }).then((response) => {
     return dispatch({
       type: BoxesAction.SET_BOXES,
       payload: response.data,
@@ -62,8 +62,5 @@ export const deleteUserFromBox = ({ user, id }) => (
   getState,
   api,
 ) => {
-  return api
-    .delete(`/boxes/${id}/changeuser?user=${user}`)
-    .then((response) => response.data)
-    .then(() => dispatch(getAvailableUsers(id)))
+  return api.delete(`/boxes/${id}/changeuser?user=${user}`)
 }

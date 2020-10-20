@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react'
-import { Select } from 'antd'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { HeaderContext } from '../Authorized'
@@ -22,17 +21,12 @@ const Calls = () => {
 
   return (
     <>
-      <Select size="large" placeholder="Выберите здание">
-        <Select.Option value="Биржевая линия 14-16">
-          Биржевая линия 14-16
-        </Select.Option>
-        <Select.Option value="Ломоносова 9">Ломоносова 9</Select.Option>
-        <Select.Option value="Кронверкский проспект 49">
-          Кронверкский проспект 49
-        </Select.Option>
-      </Select>
       {calls.map((call) => (
-        <Link to={`${PRIVATE_PATH.CALLS}/${call.id}`} key={call.id}>
+        <Link
+          to={`${PRIVATE_PATH.CALLS}/${call.id}`}
+          key={call.id}
+          style={{ gridArea: `auto` }}
+        >
           <CallCard
             time={call.datetime_call}
             isDropped={call.is_dropped}

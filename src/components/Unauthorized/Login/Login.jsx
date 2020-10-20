@@ -30,7 +30,7 @@ const Login = () => {
         >
           <Input
             prefix={<UserOutlined />}
-            placeholder="Телефон или email"
+            placeholder="Ваш email"
             size="large"
           />
         </Form.Item>

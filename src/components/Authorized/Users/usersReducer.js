@@ -1,16 +1,19 @@
-import BoxesAction from './boxesActions'
+import UsersAction from './usersActions'
 
 const initialState = {
-  boxes: [],
+  users: [],
+  user: undefined,
 }
 
-const boxesReducer = (state = initialState, action) => {
+const usersReducer = (state = initialState, action) => {
   switch (action.type) {
-    case BoxesAction.SET_BOXES:
-      return { ...state, boxes: action.payload }
+    case UsersAction.SET_USERS:
+      return { ...state, users: action.payload }
+    case UsersAction.SET_USER:
+      return { ...state, user: action.payload }
     default:
       return state
   }
 }
 
-export default boxesReducer
+export default usersReducer

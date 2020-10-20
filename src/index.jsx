@@ -11,11 +11,15 @@ import App from './App'
 import unauthorizedReducer from './components/Unauthorized/unauthorizedReducer'
 import boxesReducer from './components/Authorized/Boxes/boxesReducer'
 import callsReducer from './components/Authorized/Calls/callsReducer'
+import usersReducer from './components/Authorized/Users/usersReducer'
+import settingsReducer from './components/Authorized/Settings/settingsReducer'
 
 const reducer = combineReducers({
   session: unauthorizedReducer,
   boxes: boxesReducer,
   calls: callsReducer,
+  users: usersReducer,
+  settings: settingsReducer,
 })
 
 const store = createStore(

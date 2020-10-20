@@ -1,5 +1,7 @@
+import { PRIVATE_PATH } from '../../config'
+
 const UnauthorizedAction = {
-  GET_DATA: `GET_DATA`,
+  SET_DATA: `SET_DATA`,
   SET_BUILDINGS: `SET_BUILDINGS`,
 }
 
@@ -9,19 +11,20 @@ export const login = ({ email, password }) => (dispatch, getState, api) => {
   return api
     .post(`/users/auth/`, { email, password })
     .then((response) => response.data)
-    .then(({ token }) => {
+    .then(({ token, id }) => {
       localStorage.setItem(`token`, token)
-      window.location.reload()
+      localStorage.setItem(`id`, id)
+      window.location.href = PRIVATE_PATH.BOXES
     })
 }
 
-export const getUserData = () => (dispatch, getState, api) => {
+export const getUserData = (id) => (dispatch, getState, api) => {
   return api
-    .get(`/users/`)
+    .get(`/users/${id}`)
     .then((response) => response.data)
     .then(({ first_name, building, email, phone, room, organization }) =>
       dispatch({
-        type: UnauthorizedAction.GET_DATA,
+        type: UnauthorizedAction.SET_DATA,
         payload: {
           name: first_name,
           isAdmin: !!organization,
@@ -29,6 +32,7 @@ export const getUserData = () => (dispatch, getState, api) => {
           email,
           phone,
           room,
+          organization,
         },
       }),
     )

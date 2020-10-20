@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import { Select } from 'antd'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,29 +12,36 @@ const Boxes = () => {
   const setHeaderProps = useContext(HeaderContext)
   const { buildings } = useSelector((state) => state.session)
   const { boxes } = useSelector((state) => state.boxes)
+  const [building, setBuilding] = useState(null)
 
   useEffect(() => {
     setHeaderProps({ title: `Контейнеры` })
   }, [setHeaderProps])
 
   useEffect(() => {
-    dispatch(getBoxes())
-  }, [dispatch])
+    dispatch(getBoxes(building))
+  }, [dispatch, building])
 
   return (
     <>
-      <Select size="large" placeholder="Выберите здание">
+      <Select
+        size="large"
+        placeholder="Выберите здание"
+        onChange={(building) => setBuilding(building)}
+      >
         {buildings.map((building) => (
           <Select.Option value={building.id} key={building.id}>
             {building.address}
           </Select.Option>
         ))}
       </Select>
-      {boxes.map((box) => (
-        <Link to={`${PRIVATE_PATH.BOXES}/${box.id}`} key={box.id}>
-          <BoxCard fullness={box.fullness} room={box.room} id={box.id} />
-        </Link>
-      ))}
+      {boxes
+        .sort((a, b) => a.id - b.id)
+        .map((box) => (
+          <Link to={`${PRIVATE_PATH.BOXES}/${box.id}`} key={box.id}>
+            <BoxCard fullness={box.fullness} room={box.room} id={box.id} />
+          </Link>
+        ))}
     </>
   )
 }

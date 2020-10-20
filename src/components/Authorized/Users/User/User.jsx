@@ -1,18 +1,29 @@
 import React, { useContext, useEffect } from 'react'
-import { Divider, Typography, Card, Button, Progress, Select } from 'antd'
+import { Divider, Typography, Card, Progress } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router'
 import { HeaderContext } from '../../Authorized'
+import { getUser } from '../usersActions'
 import styles from './user.module.scss'
 
 const User = () => {
+  const dispatch = useDispatch()
+  const { id } = useParams()
   const setHeaderProps = useContext(HeaderContext)
+  const { user } = useSelector((state) => state.users)
 
   useEffect(() => {
     setHeaderProps({
-      title: `Иван Иванович`,
+      title: user && user.first_name,
       isReturnPossible: true,
     })
-  }, [setHeaderProps])
+  }, [setHeaderProps, user])
 
+  useEffect(() => {
+    dispatch(getUser(id))
+  }, [dispatch, id])
+
+  if (!user) return null
   return (
     <div className={styles.wrapper}>
       <Divider orientation="left">Информация</Divider>
@@ -22,7 +33,7 @@ const User = () => {
           copyable={{ tooltips: [`Скопировать`, `Скопировано`] }}
           onClick={(evt) => evt.preventDefault()}
         >
-          username@mail.domain
+          {user.email || `не указана`}
         </Typography.Text>
       </Typography.Paragraph>
       <Typography.Paragraph>
@@ -31,7 +42,7 @@ const User = () => {
           copyable={{ tooltips: [`Скопировать`, `Скопировано`] }}
           onClick={(evt) => evt.preventDefault()}
         >
-          +79123456789
+          {user.phone || `не указана`}
         </Typography.Text>
       </Typography.Paragraph>
       <Typography.Paragraph>
@@ -40,7 +51,7 @@ const User = () => {
           copyable={{ tooltips: [`Скопировать`, `Скопировано`] }}
           onClick={(evt) => evt.preventDefault()}
         >
-          Биржевая 14
+          {user.building || `не указано`}
         </Typography.Text>
       </Typography.Paragraph>
       <Typography.Paragraph>
@@ -49,25 +60,15 @@ const User = () => {
           copyable={{ tooltips: [`Скопировать`, `Скопировано`] }}
           onClick={(evt) => evt.preventDefault()}
         >
-          К505
+          {user.room || `не указана`}
         </Typography.Text>
       </Typography.Paragraph>
       <Divider orientation="left">Контейнеры</Divider>
-      <Card
-        title="Возле лестницы"
-        className={styles.card}
-        extra={<Button danger>Удалить</Button>}
-      >
-        <Progress percent={75} status="active" />
-      </Card>
-      <Select
-        size="large"
-        placeholder="Добавить контейнер из здания"
-        className={styles.select}
-      >
-        <Select.Option value="Лестница">У лестницы</Select.Option>
-        <Select.Option value="К505">Возле К505</Select.Option>
-      </Select>
+      {user.boxes.map((box) => (
+        <Card key={box.id} title={box.room} className={styles.card}>
+          <Progress percent={box.fullness} status="active" />
+        </Card>
+      ))}
     </div>
   )
 }

@@ -1,14 +1,27 @@
 const SettingsAction = {
-  SET_PROFILE_SETTINGS: `SET_BOXES`,
+  SET_ORGANIZATION: `SET_BOXES`,
 }
 
-export default BoxesAction
+export default SettingsAction
 
-export const getBoxes = () => (dispatch, getState, api) => {
-  return api.get(`/boxes/`).then((response) => {
-    return dispatch({
-      type: BoxesAction.SET_BOXES,
-      payload: response.data,
+export const getOrganization = () => (dispatch, getState, api) => {
+  return api
+    .get(`/organizations/${getState().session.organization}`)
+    .then((response) => {
+      return dispatch({
+        type: SettingsAction.SET_ORGANIZATION,
+        payload: response.data,
+      })
     })
-  })
+}
+
+export const putOrganization = (values) => (dispatch, getState, api) => {
+  return api
+    .put(`/organizations/${getState().session.organization}`, values)
+    .then((response) => {
+      return dispatch({
+        type: SettingsAction.SET_ORGANIZATION,
+        payload: response.data,
+      })
+    })
 }

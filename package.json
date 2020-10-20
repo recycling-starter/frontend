@@ -3,7 +3,6 @@
   "homepage": "https://recycling-starter.github.io",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://api.recyclingstarter.ru/",
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
     "@babel/core": "^7.12.3",

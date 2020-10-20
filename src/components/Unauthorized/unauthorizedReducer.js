@@ -14,11 +14,9 @@ const initialState = {
 
 const unauthorizedReducer = (state = initialState, action) => {
   switch (action.type) {
-    case UnauthorizedAction.LOG_IN:
-      return { ...state, ...action.payload, isAuthorized: true }
     case UnauthorizedAction.SET_BUILDINGS:
       return { ...state, buildings: action.payload }
-    case UnauthorizedAction.GET_DATA:
+    case UnauthorizedAction.SET_DATA:
       return { ...state, ...action.payload, isAuthorized: true }
     default:
       return state

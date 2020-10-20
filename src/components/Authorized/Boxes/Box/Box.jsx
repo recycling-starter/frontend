@@ -65,7 +65,14 @@ const Box = () => {
     history.push(`./`)
   }
 
-  return box ? (
+  const handleDeleteUserFromBox = async (user) => {
+    await dispatch(deleteUserFromBox({ user, id }))
+    dispatch(getBox(id))
+    dispatch(getAvailableUsers(id))
+  }
+
+  if (!box) return null
+  return (
     <div className={styles.wrapper}>
       <Typography.Title level={4}>
         {box.building.address}, {box.room.toLowerCase()}
@@ -113,12 +120,7 @@ const Box = () => {
             title={user.first_name}
             className={styles.card}
             extra={
-              <Button
-                danger
-                onClick={() =>
-                  dispatch(deleteUserFromBox({ user: user.id, id }))
-                }
-              >
+              <Button danger onClick={() => handleDeleteUserFromBox(user.id)}>
                 Удалить
               </Button>
             }
@@ -128,7 +130,7 @@ const Box = () => {
         ))}
         <Select
           size="large"
-          placeholder="Добавить ответственного из здания"
+          value="Добавить ответственного из здания"
           className={styles.select}
           onChange={(user) => dispatch(postUserToBox({ user, id }))}
         >
@@ -144,7 +146,7 @@ const Box = () => {
         </Button>
       </Form>
     </div>
-  ) : null
+  )
 }
 
 export default Box

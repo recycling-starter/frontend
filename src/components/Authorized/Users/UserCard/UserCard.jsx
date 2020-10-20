@@ -2,9 +2,11 @@ import { Card, Typography } from 'antd'
 import React from 'react'
 import styles from './userCard.module.scss'
 
-const UserCard = () => {
+const UserCard = (props) => {
+  const { building, room, email, name, phone } = props
+
   return (
-    <Card title="Иван Иванович">
+    <Card title={name || `Безымянный пользователь`}>
       <div className={styles.contentWrapper}>
         <Typography.Paragraph>
           <Typography.Text>Локация: </Typography.Text>
@@ -12,7 +14,7 @@ const UserCard = () => {
             copyable={{ tooltips: [`Скопировать`, `Скопировано`] }}
             onClick={(evt) => evt.preventDefault()}
           >
-            Биржевая 14, К505
+            {building || `не указана`}, {room && room.toLowerCase()}
           </Typography.Text>
         </Typography.Paragraph>
         <Typography.Paragraph>
@@ -21,7 +23,7 @@ const UserCard = () => {
             copyable={{ tooltips: [`Скопировать`, `Скопировано`] }}
             onClick={(evt) => evt.preventDefault()}
           >
-            +79123456789
+            {phone || `не указан`}
           </Typography.Text>
         </Typography.Paragraph>
         <Typography.Paragraph>
@@ -30,7 +32,7 @@ const UserCard = () => {
             copyable={{ tooltips: [`Скопировать`, `Скопировано`] }}
             onClick={(evt) => evt.preventDefault()}
           >
-            ivanivanovich@mail.com
+            {email || `не указан`}
           </Typography.Text>
         </Typography.Paragraph>
       </div>

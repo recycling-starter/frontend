@@ -24,11 +24,17 @@ const App = () => {
   const { isAuthorized } = useSelector((state) => state.session)
 
   useEffect(() => {
-    if (!(localStorage.getItem(`token`) && !isAuthorized)) {
+    if (
+      !(
+        localStorage.getItem(`token`) &&
+        localStorage.getItem(`id`) &&
+        !isAuthorized
+      )
+    ) {
       setLoading(false)
       return
     }
-    dispatch(getUserData())
+    dispatch(getUserData(localStorage.getItem(`id`)))
   }, [isAuthorized, dispatch])
 
   return (
