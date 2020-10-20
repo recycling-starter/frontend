@@ -1,3 +1,5 @@
+import UnauthorizedAction from '../../Unauthorized/unauthorizedActions'
+
 const SettingsAction = {
   SET_ORGANIZATION: `SET_ORGANIZATION`,
 }
@@ -24,4 +26,13 @@ export const putOrganization = (values) => (dispatch, getState, api) => {
         payload: response.data,
       })
     })
+}
+
+export const putUserData = (values) => (dispatch, getState, api) => {
+  return api.put(`/users/`, values).then((response) => {
+    return dispatch({
+      type: UnauthorizedAction.SET_DATA,
+      payload: response.data,
+    })
+  })
 }

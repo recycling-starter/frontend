@@ -11,15 +11,26 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { HeaderContext } from '../Authorized'
 import styles from './settings.module.scss'
-import { getOrganization, putOrganization } from './settingsActions'
+import {
+  getOrganization,
+  putOrganization,
+  putUserData,
+} from './settingsActions'
 
 const Settings = () => {
   const dispatch = useDispatch()
   const setHeaderProps = useContext(HeaderContext)
   const { organization } = useSelector((state) => state.settings)
-  const { name, phone, buildings, building, room, isAdmin } = useSelector(
-    (state) => state.session,
-  )
+  const {
+    name,
+    phone,
+    buildings,
+    building,
+    room,
+    isAdmin,
+    email,
+  } = useSelector((state) => state.session)
+  const [form] = Form.useForm()
 
   useEffect(() => {
     setHeaderProps({ title: `Настройки` })
@@ -36,15 +47,35 @@ const Settings = () => {
     } catch {
       message.error(`Ошибка при сохранении настроек`)
     }
+    form.resetFields()
+  }
+
+  const handleUpdateUserData = async (values) => {
+    try {
+      await dispatch(putUserData(values))
+      message.success(`Настройки сохранены`)
+    } catch {
+      message.error(`Ошибка при сохранении настроек`)
+    }
+    form.resetFields()
   }
 
   return (
     <div className={styles.wrapper}>
-      <Form layout="vertical">
+      <Form layout="vertical" onFinish={handleUpdateUserData} form={form}>
         <Divider orientation="left">Профиль</Divider>
+        <Form.Item label="E-mail">
+          <Input
+            disabled
+            placeholder="email@mail.com"
+            size="large"
+            type="email"
+            value={email}
+          />
+        </Form.Item>
         <Form.Item
           label="Имя"
-          name="username"
+          name="first_name"
           initialValue={name}
           rules={[{ required: true, message: `Введите имя` }]}
         >
@@ -74,14 +105,14 @@ const Settings = () => {
         </Form.Item>
         <Form.Item
           label="Локация"
-          name="location"
+          name="room"
           initialValue={room}
           rules={[{ required: true, message: `Введите локацию` }]}
         >
           <Input placeholder="Возле лестницы" size="large" />
         </Form.Item>
         <Divider />
-        <Button block type="primary" size="large">
+        <Button block type="primary" size="large" htmlType="submit">
           Сохранить
         </Button>
       </Form>
