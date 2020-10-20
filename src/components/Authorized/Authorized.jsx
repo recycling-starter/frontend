@@ -44,7 +44,9 @@ const Authorized = (props) => {
           )
         }
         onBack={
-          isReturnPossible ? () => null : () => isDesktop && setShowDrawer(true)
+          isReturnPossible
+            ? () => null
+            : () => !isDesktop && setShowDrawer(true)
         }
       />
       {isDesktop ? (
