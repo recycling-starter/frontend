@@ -3,10 +3,13 @@ import React from 'react'
 import styles from './userCard.module.scss'
 
 const UserCard = (props) => {
-  const { building, room, email, name, phone } = props
+  const { building, room, email, name, phone, isAdmin } = props
 
   return (
-    <Card title={name || `Безымянный пользователь`}>
+    <Card
+      title={name || `Безымянный пользователь`}
+      extra={isAdmin && <Typography.Text type="warning">Admin</Typography.Text>}
+    >
       <div className={styles.contentWrapper}>
         <Typography.Paragraph>
           <Typography.Text>Локация: </Typography.Text>

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Drawer, PageHeader, Typography } from 'antd'
+import { Drawer, PageHeader } from 'antd'
 import { ArrowLeftOutlined, MenuOutlined } from '@ant-design/icons'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useMediaQuery } from 'react-responsive'
 import { getBuildings } from '../Unauthorized/unauthorizedActions'
+import { PRIVATE_PATH } from '../../config'
 import Menu from './Menu'
 import styles from './authorized.module.scss'
 
@@ -18,10 +19,10 @@ const Authorized = (props) => {
   const [headerProps, setHeaderProps] = useState({ title: `` })
   const isDesktop = useMediaQuery({ minDeviceWidth: 1224 })
   const { title, isReturnPossible } = headerProps
-  const { isAdmin, name } = useSelector((state) => state.session)
+  const { isAdmin, name, organization } = useSelector((state) => state.session)
 
   useEffect(() => {
-    dispatch(getBuildings())
+    dispatch(getBuildings(organization))
   }, [dispatch])
 
   return (
@@ -40,7 +41,9 @@ const Authorized = (props) => {
         }
         extra={
           isDesktop && (
-            <Typography.Text className={styles.text}>{name}</Typography.Text>
+            <Link to={PRIVATE_PATH.SETTINGS} className={styles.text}>
+              {name}
+            </Link>
           )
         }
         onBack={
@@ -53,7 +56,7 @@ const Authorized = (props) => {
         <Menu setShowDrawer={setShowDrawer} isAdmin={isAdmin} />
       ) : (
         <Drawer
-          title={name}
+          title={<Link to={PRIVATE_PATH.SETTINGS}>{name}</Link>}
           placement="left"
           closable={false}
           visible={showDrawer}

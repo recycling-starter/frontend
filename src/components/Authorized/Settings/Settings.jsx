@@ -160,7 +160,7 @@ const Settings = () => {
             label="Максимум заполненных контейнеров"
             name="min_full_boxes"
             initialValue={organization.min_full_boxes}
-            rules={[{ required: true, message: `Введите e-mail` }]}
+            rules={[{ required: true, message: `Заполните поле` }]}
           >
             <InputNumber placeholder="3" size="large" />
           </Form.Item>
@@ -168,7 +168,7 @@ const Settings = () => {
             label="Заполненность для вызова компании"
             name="min_fullness_level_dropoff_call"
             initialValue={organization.min_fullness_level_dropoff_call}
-            rules={[{ required: true, message: `Введите e-mail` }]}
+            rules={[{ required: true, message: `Заполните поле` }]}
           >
             <InputNumber
               placeholder="3"
@@ -180,11 +180,11 @@ const Settings = () => {
           </Form.Item>
           <Form.Item
             label="Заполненность для вывоза контейнера"
-            name="alsoTake"
-            rules={[{ required: false, message: `Введите e-mail` }]}
+            name="min_fullness_level_dropoff"
+            initialValue={organization.min_fullness_level_dropoff}
+            rules={[{ required: true, message: `Заполните поле` }]}
           >
             <InputNumber
-              disabled
               placeholder="3"
               size="large"
               min={0}

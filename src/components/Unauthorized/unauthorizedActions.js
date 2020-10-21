@@ -43,13 +43,15 @@ export const getUserData = (id) => (dispatch, getState, api) => {
     })
 }
 
-export const getBuildings = () => (dispatch, getState, api) => {
-  return api.get(`/buildings/`).then((response) => {
-    return dispatch({
-      type: UnauthorizedAction.SET_BUILDINGS,
-      payload: response.data,
+export const getBuildings = (organization) => (dispatch, getState, api) => {
+  return api
+    .get(`/buildings/`, { params: { organization } })
+    .then((response) => {
+      return dispatch({
+        type: UnauthorizedAction.SET_BUILDINGS,
+        payload: response.data,
+      })
     })
-  })
 }
 
 export const postUser = (values) => (dispatch, getState, api) => {

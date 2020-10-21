@@ -1,15 +1,14 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { Select } from 'antd'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { HeaderContext } from '../Authorized'
+import { PRIVATE_PATH } from '../../../config'
 import UserCard from './UserCard'
 import { getUsers } from './usersActions'
-import { PRIVATE_PATH } from '../../../config'
 
 const Users = () => {
   const dispatch = useDispatch()
-  const history = useHistory()
   const setHeaderProps = useContext(HeaderContext)
   const { buildings } = useSelector((state) => state.session)
   const { users } = useSelector((state) => state.users)
@@ -48,6 +47,7 @@ const Users = () => {
             email={user.email}
             name={user.first_name}
             building={getBuildingAddress(user.building)}
+            isAdmin={!!user.organization}
           />
         </Link>
       ))}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import { PageHeader, Tabs } from 'antd'
 import { PUBLIC_PATH } from '../../config'
@@ -11,6 +11,7 @@ export const HeaderContext = React.createContext({})
 const Unauthorized = (props) => {
   const { children } = props
   const path = useLocation().pathname
+  const history = useHistory()
   const [headerProps, setHeaderProps] = useState({
     title: ``,
     tab: `login`,
@@ -29,7 +30,17 @@ const Unauthorized = (props) => {
           </Link>
         }
         extra={
-          <Tabs defaultActiveKey={path.replace(/\//g, ``)} size="small">
+          <Tabs
+            defaultActiveKey={path.replace(/\//g, ``)}
+            size="small"
+            onChange={(activeKey) =>
+              history.push(
+                activeKey === `login`
+                  ? PUBLIC_PATH.LOGIN
+                  : PUBLIC_PATH.REGISTRATION,
+              )
+            }
+          >
             <Tabs.TabPane
               tab={
                 <Link to={PUBLIC_PATH.LOGIN} className={styles.link}>

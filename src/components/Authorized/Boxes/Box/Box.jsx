@@ -122,7 +122,7 @@ const Box = () => {
         </div>
         <p className={styles.text}>Изменение заполненности контейнера</p>
         <Divider />
-        {isAdmin ?? (
+        {isAdmin && (
           <Form.Item
             label="Расположение"
             initialValue={box.room}

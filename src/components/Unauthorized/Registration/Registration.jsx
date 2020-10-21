@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Form, Input, Button, Select, message } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import { getBuildings, login, postUser } from '../unauthorizedActions'
+import { useHistory } from 'react-router'
+import { getBuildings, postUser } from '../unauthorizedActions'
 import styles from './registration.module.scss'
 
 const Registration = () => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const { buildings } = useSelector((state) => state.session)
   const [loading, setLoading] = useState(false)
 
@@ -22,10 +24,12 @@ const Registration = () => {
       message.success(
         `Ссылка для подтверждения регистрации отправлена на ваш e-mail`,
       )
+      history.push(`/login`)
     } catch (e) {
       hide()
-      if (e.email) message.error(`Пользователь с таким e-mail уже существует`)
-      if (e.phone) message.error(`Неверный формат номера телефона`)
+      message.error(`Ошибка регистрации`)
+      if (e.email) message.warn(`Пользователь с таким e-mail уже существует`)
+      else if (e.phone) message.warn(`Неверный формат номера телефона`)
     }
     setLoading(false)
   }

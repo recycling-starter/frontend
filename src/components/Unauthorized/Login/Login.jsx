@@ -11,7 +11,6 @@ const Login = () => {
   const dispatch = useDispatch()
 
   const handleSubmit = (values) => {
-    console.log(values)
     dispatch(
       login({
         email: values.email,
