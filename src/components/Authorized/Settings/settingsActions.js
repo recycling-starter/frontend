@@ -32,7 +32,7 @@ export const putUserData = (values) => (dispatch, getState, api) => {
   return api.put(`/users/`, values).then((response) => {
     return dispatch({
       type: UnauthorizedAction.SET_DATA,
-      payload: response.data,
+      payload: { ...response.data, name: response.data.first_name },
     })
   })
 }

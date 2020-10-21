@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { HeaderContext } from '../Authorized'
 import UserCard from './UserCard'
 import { getUsers } from './usersActions'
+import { PRIVATE_PATH } from '../../../config'
 
 const Users = () => {
   const dispatch = useDispatch()
@@ -40,8 +41,8 @@ const Users = () => {
           </Select.Option>
         ))}
       </Select>
-      {users.map((user, index) => (
-        <Link to={`${history.location.pathname}/${index + 1}`} key={index}>
+      {users.map((user) => (
+        <Link to={`${PRIVATE_PATH.USERS}/${user.id}`} key={user.id}>
           <UserCard
             room={user.room}
             email={user.email}

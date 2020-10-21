@@ -2,8 +2,10 @@ import React, { useContext, useEffect } from 'react'
 import { Divider, Typography, Card, Progress } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
+import { Link } from 'react-router-dom'
 import { HeaderContext } from '../../Authorized'
 import { getUser } from '../usersActions'
+import { PRIVATE_PATH } from '../../../../config'
 import styles from './user.module.scss'
 
 const User = () => {
@@ -65,9 +67,11 @@ const User = () => {
       </Typography.Paragraph>
       <Divider orientation="left">Контейнеры</Divider>
       {user.boxes.map((box) => (
-        <Card key={box.id} title={box.room} className={styles.card}>
-          <Progress percent={box.fullness} status="active" />
-        </Card>
+        <Link to={`${PRIVATE_PATH.BOXES}/${box.id}`} key={box.id}>
+          <Card title={box.room} className={styles.card}>
+            <Progress percent={box.fullness} status="active" />
+          </Card>
+        </Link>
       ))}
     </div>
   )

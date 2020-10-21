@@ -20,6 +20,7 @@ import {
   deleteUserFromBox,
   getAvailableUsers,
   getBox,
+  patchBox,
   postUserToBox,
   putBox,
 } from '../boxesActions'
@@ -55,12 +56,22 @@ const Box = () => {
   }, [id, dispatch])
 
   const handleFinish = async (values) => {
-    await dispatch(putBox(id, { ...values, fullness: filling }))
-    message.success(`Данные сохранены`)
+    try {
+      await dispatch(
+        isAdmin
+          ? putBox(id, { ...values, fullness: filling })
+          : patchBox(id, filling),
+      )
+      message.success(`Данные сохранены`)
+    } catch {
+      message.error(`При сохранении данных произошла ошибка`)
+    }
   }
 
   const handleChangeFilling = (delta) => {
-    setFilling(Math.max(0, Math.min(100, filling + delta)))
+    setFilling(
+      Math.max(isAdmin ? 0 : box.fullness, Math.min(100, filling + delta)),
+    )
   }
 
   const handleDeleteBox = async () => {
@@ -111,14 +122,16 @@ const Box = () => {
         </div>
         <p className={styles.text}>Изменение заполненности контейнера</p>
         <Divider />
-        <Form.Item
-          label="Расположение"
-          initialValue={box.room}
-          name="room"
-          rules={[{ required: true, message: `Укажите расположение` }]}
-        >
-          <Input size="large" placeholder="Возле лестницы" />
-        </Form.Item>
+        {isAdmin ?? (
+          <Form.Item
+            label="Расположение"
+            initialValue={box.room}
+            name="room"
+            rules={[{ required: true, message: `Укажите расположение` }]}
+          >
+            <Input size="large" placeholder="Возле лестницы" />
+          </Form.Item>
+        )}
         <Button block type="primary" size="large" htmlType="submit">
           Сохранить
         </Button>

@@ -34,7 +34,13 @@ export const getAvailableUsers = (id) => (dispatch, getState, api) => {
 }
 
 export const putBox = (id, values) => (dispatch, getState, api) => {
-  return api.put(`/boxes/${id}`, values).then((response) => {
+  return api.put(`/boxes/${id}`, values).then(() => {
+    dispatch(getBox(id))
+  })
+}
+
+export const patchBox = (id, fullness) => (dispatch, getState, api) => {
+  return api.patch(`/boxes/${id}`, { fullness }).then(() => {
     dispatch(getBox(id))
   })
 }

@@ -39,7 +39,7 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "SET PORT=3100 && craco start",
     "build": "craco build",
     "eject": "react-scripts eject",
     "lint": "eslint src --fix --ext js,jsx",

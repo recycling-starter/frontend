@@ -1,13 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import {
-  Button,
-  Divider,
-  Form,
-  Input,
-  InputNumber,
-  message,
-  Select,
-} from 'antd'
+import { Button, Divider, Form, Input, InputNumber, message } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { HeaderContext } from '../Authorized'
 import styles from './settings.module.scss'
@@ -21,15 +13,9 @@ const Settings = () => {
   const dispatch = useDispatch()
   const setHeaderProps = useContext(HeaderContext)
   const { organization } = useSelector((state) => state.settings)
-  const {
-    name,
-    phone,
-    buildings,
-    building,
-    room,
-    isAdmin,
-    email,
-  } = useSelector((state) => state.session)
+  const { name, phone, room, isAdmin, email } = useSelector(
+    (state) => state.session,
+  )
   const [form] = Form.useForm()
 
   useEffect(() => {
@@ -62,7 +48,7 @@ const Settings = () => {
 
   return (
     <div className={styles.wrapper}>
-      <Form layout="vertical" onFinish={handleUpdateUserData} form={form}>
+      <Form layout="vertical" form={form} onFinish={handleUpdateUserData}>
         <Divider orientation="left">Профиль</Divider>
         <Form.Item label="E-mail">
           <Input
@@ -88,20 +74,6 @@ const Settings = () => {
           rules={[{ required: true, message: `Введите телефон` }]}
         >
           <Input placeholder={phone} size="large" type="phone" />
-        </Form.Item>
-        <Form.Item
-          label="Здание"
-          name="building"
-          initialValue={building}
-          rules={[{ required: true, message: `Выберите здание` }]}
-        >
-          <Select size="large" placeholder="Выберите здание">
-            {buildings.map((building) => (
-              <Select.Option value={building.id} key={building.id}>
-                {building.address}
-              </Select.Option>
-            ))}
-          </Select>
         </Form.Item>
         <Form.Item
           label="Локация"
