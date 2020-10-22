@@ -22,8 +22,8 @@ const Authorized = (props) => {
   const { isAdmin, name, organization } = useSelector((state) => state.session)
 
   useEffect(() => {
-    dispatch(getBuildings(organization))
-  }, [dispatch])
+    if (isAdmin) dispatch(getBuildings(organization))
+  }, [dispatch, organization, isAdmin])
 
   return (
     <div className={styles.container}>

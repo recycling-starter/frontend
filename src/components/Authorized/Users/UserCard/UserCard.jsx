@@ -3,12 +3,18 @@ import React from 'react'
 import styles from './userCard.module.scss'
 
 const UserCard = (props) => {
-  const { building, room, email, name, phone, isAdmin } = props
+  const { building, room, email, name, phone, isAdmin, disabled } = props
+
+  const getExtraContent = () => {
+    if (isAdmin) return <Typography.Text type="warning">Admin</Typography.Text>
+    if (disabled) return <Typography.Text disabled>Inactive</Typography.Text>
+  }
 
   return (
     <Card
       title={name || `Безымянный пользователь`}
-      extra={isAdmin && <Typography.Text type="warning">Admin</Typography.Text>}
+      extra={getExtraContent()}
+      className={disabled ? styles.disabledCard : styles.card}
     >
       <div className={styles.contentWrapper}>
         <Typography.Paragraph>

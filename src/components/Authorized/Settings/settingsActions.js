@@ -36,3 +36,9 @@ export const putUserData = (values) => (dispatch, getState, api) => {
     })
   })
 }
+
+export const patchUser = (values) => (dispatch, getState, api) => {
+  return api.patch(`/users/`, values).catch(({ response }) => {
+    throw response.data
+  })
+}

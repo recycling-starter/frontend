@@ -3,3 +3,13 @@
     margin-bottom: 0;
   }
 }
+
+.card {
+  height: 100%;
+}
+
+.disabledCard {
+  composes: card;
+  filter: grayscale(1);
+  background: #fcfcfc;
+}

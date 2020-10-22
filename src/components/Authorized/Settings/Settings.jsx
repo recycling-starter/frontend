@@ -5,6 +5,7 @@ import { HeaderContext } from '../Authorized'
 import styles from './settings.module.scss'
 import {
   getOrganization,
+  patchUser,
   putOrganization,
   putUserData,
 } from './settingsActions'
@@ -44,6 +45,17 @@ const Settings = () => {
       message.error(`Ошибка при сохранении настроек`)
     }
     form.resetFields()
+  }
+
+  const handleChangePassword = async (values) => {
+    const { password, new_password } = values
+    try {
+      await dispatch(patchUser({ old_password: password, new_password }))
+      message.success(`Пароль успешно изменен`)
+    } catch (err) {
+      message.error(`Ошибка при изменении пароля`)
+      if (err.old_password) message.warn(`Старый пароль введён неверно`)
+    }
   }
 
   return (
@@ -88,11 +100,24 @@ const Settings = () => {
           Сохранить
         </Button>
       </Form>
-      <Form layout="vertical">
+      <Form layout="vertical" onFinish={handleChangePassword}>
         <Divider orientation="left">Сменить пароль</Divider>
         <Form.Item
           hasFeedback
           name="password"
+          label="Старый пароль"
+          rules={[
+            {
+              required: true,
+              message: `Введите пароль`,
+            },
+          ]}
+        >
+          <Input.Password placeholder="••••••••" size="large" />
+        </Form.Item>
+        <Form.Item
+          hasFeedback
+          name="new_password"
           label="Пароль"
           rules={[
             {
@@ -107,7 +132,7 @@ const Settings = () => {
           hasFeedback
           name="confirm"
           label="Подтвердите пароль"
-          dependencies={[`password`]}
+          dependencies={[`new_password`]}
           rules={[
             {
               required: true,
@@ -115,7 +140,7 @@ const Settings = () => {
             },
             ({ getFieldValue }) => ({
               validator(rule, value) {
-                if (!value || getFieldValue(`password`) === value) {
+                if (!value || getFieldValue(`new_password`) === value) {
                   return Promise.resolve()
                 }
                 return Promise.reject(`Пароли не совпадают`)
@@ -126,7 +151,13 @@ const Settings = () => {
           <Input.Password placeholder="••••••••" size="large" />
         </Form.Item>
         <Divider />
-        <Button block type="primary" size="large" style={{ marginBottom: 24 }}>
+        <Button
+          block
+          type="primary"
+          htmlType="submit"
+          size="large"
+          style={{ marginBottom: 24 }}
+        >
           Сменить пароль
         </Button>
         <Button block size="large">

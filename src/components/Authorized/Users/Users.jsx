@@ -10,7 +10,7 @@ import { getUsers } from './usersActions'
 const Users = () => {
   const dispatch = useDispatch()
   const setHeaderProps = useContext(HeaderContext)
-  const { buildings } = useSelector((state) => state.session)
+  const { buildings, organization } = useSelector((state) => state.session)
   const { users } = useSelector((state) => state.users)
   const [building, setBuilding] = useState(null)
 
@@ -19,8 +19,8 @@ const Users = () => {
   }, [setHeaderProps])
 
   useEffect(() => {
-    dispatch(getUsers(building))
-  }, [dispatch, building])
+    dispatch(getUsers({ building, organization }))
+  }, [dispatch, building, organization])
 
   const getBuildingAddress = (id) => {
     const building = buildings.find((building) => building.id === id)
@@ -48,6 +48,7 @@ const Users = () => {
             name={user.first_name}
             building={getBuildingAddress(user.building)}
             isAdmin={!!user.organization}
+            disabled={!user.is_active}
           />
         </Link>
       ))}

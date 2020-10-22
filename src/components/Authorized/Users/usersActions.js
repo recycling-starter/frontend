@@ -5,9 +5,13 @@ const UsersAction = {
 
 export default UsersAction
 
-export const getUsers = (building) => (dispatch, getState, api) => {
+export const getUsers = ({ building, organization } = {}) => (
+  dispatch,
+  getState,
+  api,
+) => {
   return api
-    .get(`/users/`, { params: { building } })
+    .get(`/users/`, { params: building ? { building } : { organization } })
     .then(({ data }) =>
       dispatch({
         type: UsersAction.SET_USERS,

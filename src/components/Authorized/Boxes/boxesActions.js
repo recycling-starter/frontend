@@ -6,13 +6,19 @@ const BoxesAction = {
 
 export default BoxesAction
 
-export const getBoxes = (building) => (dispatch, getState, api) => {
-  return api.get(`/boxes/`, { params: { building } }).then((response) => {
-    return dispatch({
-      type: BoxesAction.SET_BOXES,
-      payload: response.data,
+export const getBoxes = ({ building, organization } = {}) => (
+  dispatch,
+  getState,
+  api,
+) => {
+  return api
+    .get(`/boxes/`, { params: building ? { building } : { organization } })
+    .then((response) => {
+      return dispatch({
+        type: BoxesAction.SET_BOXES,
+        payload: response.data,
+      })
     })
-  })
 }
 
 export const getBox = (id) => (dispatch, getState, api) => {

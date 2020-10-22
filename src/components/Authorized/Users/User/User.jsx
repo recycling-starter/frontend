@@ -13,6 +13,7 @@ const User = () => {
   const { id } = useParams()
   const setHeaderProps = useContext(HeaderContext)
   const { user } = useSelector((state) => state.users)
+  const { buildings } = useSelector((state) => state.session)
 
   useEffect(() => {
     setHeaderProps({
@@ -24,6 +25,12 @@ const User = () => {
   useEffect(() => {
     dispatch(getUser(id))
   }, [dispatch, id])
+
+  const getBuildingAddress = (id) => {
+    if (!id) return null
+    const building = buildings.find((building) => building.id === id)
+    return building && building.address
+  }
 
   if (!user) return null
   return (
@@ -53,7 +60,7 @@ const User = () => {
           copyable={{ tooltips: [`Скопировать`, `Скопировано`] }}
           onClick={(evt) => evt.preventDefault()}
         >
-          {user.building || `не указано`}
+          {getBuildingAddress(user.building) || `не указано`}
         </Typography.Text>
       </Typography.Paragraph>
       <Typography.Paragraph>

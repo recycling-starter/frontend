@@ -41,22 +41,8 @@ const Unauthorized = (props) => {
               )
             }
           >
-            <Tabs.TabPane
-              tab={
-                <Link to={PUBLIC_PATH.LOGIN} className={styles.link}>
-                  Вход
-                </Link>
-              }
-              key="login"
-            />
-            <Tabs.TabPane
-              tab={
-                <Link to={PUBLIC_PATH.REGISTRATION} className={styles.link}>
-                  Регистрация
-                </Link>
-              }
-              key="registration"
-            />
+            <Tabs.TabPane tab="Вход" key="login" />
+            <Tabs.TabPane tab="Регистрация" key="registration" />
           </Tabs>
         }
       />

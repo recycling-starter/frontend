@@ -10,7 +10,9 @@ import { getBoxes } from './boxesActions'
 const Boxes = () => {
   const dispatch = useDispatch()
   const setHeaderProps = useContext(HeaderContext)
-  const { buildings } = useSelector((state) => state.session)
+  const { buildings, organization, isAdmin } = useSelector(
+    (state) => state.session,
+  )
   const { boxes } = useSelector((state) => state.boxes)
   const [building, setBuilding] = useState(null)
 
@@ -19,26 +21,32 @@ const Boxes = () => {
   }, [setHeaderProps])
 
   useEffect(() => {
-    dispatch(getBoxes(building))
-  }, [dispatch, building])
+    dispatch(getBoxes({ building, organization }))
+  }, [dispatch, building, organization])
 
   return (
     <>
-      <Select
-        size="large"
-        placeholder="Выберите здание"
-        onChange={(building) => setBuilding(building)}
-      >
-        {buildings.map((building) => (
-          <Select.Option value={building.id} key={building.id}>
-            {building.address}
-          </Select.Option>
-        ))}
-      </Select>
+      {isAdmin && (
+        <Select
+          size="large"
+          placeholder="Выберите здание"
+          onChange={(building) => setBuilding(building)}
+        >
+          {buildings.map((building) => (
+            <Select.Option value={building.id} key={building.id}>
+              {building.address}
+            </Select.Option>
+          ))}
+        </Select>
+      )}
       {boxes
         .sort((a, b) => a.id - b.id)
         .map((box) => (
-          <Link to={`${PRIVATE_PATH.BOXES}/${box.id}`} key={box.id}>
+          <Link
+            to={`${PRIVATE_PATH.BOXES}/${box.id}`}
+            key={box.id}
+            style={isAdmin ? {} : { gridArea: `auto` }}
+          >
             <BoxCard fullness={box.fullness} room={box.room} id={box.id} />
           </Link>
         ))}

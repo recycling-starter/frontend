@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, message } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { useDispatch } from 'react-redux'
 import { PUBLIC_PATH } from '../../../config'
@@ -10,13 +10,17 @@ import styles from './login.module.scss'
 const Login = () => {
   const dispatch = useDispatch()
 
-  const handleSubmit = (values) => {
-    dispatch(
-      login({
-        email: values.email,
-        password: values.password,
-      }),
-    )
+  const handleSubmit = async (values) => {
+    try {
+      await dispatch(
+        login({
+          email: values.email,
+          password: values.password,
+        }),
+      )
+    } catch {
+      message.error(`Ошибка входа`)
+    }
   }
 
   return (
