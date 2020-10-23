@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Form, Input, Button, message } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
@@ -9,8 +9,11 @@ import styles from './login.module.scss'
 
 const Login = () => {
   const dispatch = useDispatch()
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (values) => {
+    const hide = message.loading(`Вход...`, 0)
+    setLoading(true)
     try {
       await dispatch(
         login({
@@ -19,8 +22,10 @@ const Login = () => {
         }),
       )
     } catch {
+      hide()
       message.error(`Ошибка входа`)
     }
+    setLoading(false)
   }
 
   return (
@@ -55,6 +60,7 @@ const Login = () => {
             size="large"
             htmlType="submit"
             className={styles.loginButton}
+            loading={loading}
           >
             Войти
           </Button>

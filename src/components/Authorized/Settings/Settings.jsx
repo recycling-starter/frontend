@@ -160,9 +160,6 @@ const Settings = () => {
         >
           Сменить пароль
         </Button>
-        <Button block size="large">
-          Сбросить пароль
-        </Button>
       </Form>
       {organization && (
         <Form

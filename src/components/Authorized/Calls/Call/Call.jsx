@@ -1,10 +1,12 @@
 import React, { useContext, useEffect } from 'react'
 import { Divider, Typography, List, Button } from 'antd'
+import { Link } from 'react-router-dom'
 import { useParams } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
 import moment from 'moment'
 import { HeaderContext } from '../../Authorized'
 import { getCall, putCall } from '../callsActions'
+import { PRIVATE_PATH } from '../../../../config'
 
 const Call = () => {
   const setHeaderProps = useContext(HeaderContext)
@@ -29,13 +31,19 @@ const Call = () => {
     dispatch(getCall(id))
   }
 
-  return call ? (
-    <div>
+  if (!call) return null
+  return (
+    <div style={{ width: `60%`, margin: `auto` }}>
       <Typography.Title level={4}>{call.building.address}</Typography.Title>
       <Divider>Список контейнеров</Divider>
       <List bordered>
-        {call.boxes.forEach(() => (
-          <List.Item>Возле лестницы</List.Item>
+        {call.boxes.map((box) => (
+          <List.Item key={box.data.id}>
+            <Link to={`${PRIVATE_PATH.BOXES}/${box.data.id}`}>
+              {box.data.room}
+            </Link>
+            <Typography.Text>{box.data.box_percent_dropped}%</Typography.Text>
+          </List.Item>
         ))}
       </List>
       <Divider />
@@ -49,7 +57,7 @@ const Call = () => {
         {call.is_dropped ? `Вывоз подтверждён` : `Подтвердить вывоз`}
       </Button>
     </div>
-  ) : null
+  )
 }
 
 export default Call

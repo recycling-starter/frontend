@@ -4,6 +4,8 @@ export const PUBLIC_PATH = {
   LOGIN: `/login`,
   REGISTRATION: `/registration`,
   RESTORE: `/restore`,
+  RESET_PASSWORD: `/reset_password/:uid/:token`,
+  CONFIRM_EMAIL: `/confirm_email/:uid/:token`,
 }
 
 export const PRIVATE_PATH = {

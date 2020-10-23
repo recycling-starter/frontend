@@ -19,9 +19,18 @@ const Calls = () => {
     dispatch(getCalls())
   }, [dispatch])
 
+  const sortByDate = (a, b) => {
+    if (a.is_dropped !== b.is_dropped) return a.is_dropped - b.is_dropped
+    else
+      return (
+        new Date(b.datetime_call).getTime() -
+        new Date(a.datetime_call).getTime()
+      )
+  }
+
   return (
     <>
-      {calls.map((call) => (
+      {calls.sort(sortByDate).map((call) => (
         <Link
           to={`${PRIVATE_PATH.CALLS}/${call.id}`}
           key={call.id}

@@ -16,6 +16,8 @@ import Call from './components/Authorized/Calls/Call'
 import Unauthorized from './components/Unauthorized'
 import { getUserData } from './components/Unauthorized/unauthorizedActions'
 import CreateBox from './components/Authorized/CreateBox'
+import ResetPassword from './components/Unauthorized/ResetPassword'
+import ConfirmEmail from './components/Unauthorized/ConfirmEmail'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -67,6 +69,12 @@ const App = () => {
           <Route exact path={PRIVATE_PATH.CALL}>
             <Call />
           </Route>
+          <Route exact path={PUBLIC_PATH.RESET_PASSWORD}>
+            <ResetPassword />
+          </Route>
+          <Route exact path={PUBLIC_PATH.CONFIRM_EMAIL}>
+            <ConfirmEmail />
+          </Route>
           <Redirect to={PRIVATE_PATH.BOXES} />
         </Switch>
       </Authorized>
@@ -82,9 +90,13 @@ const App = () => {
           <Route exact path={PUBLIC_PATH.RESTORE}>
             <Restore />
           </Route>
-          <Route>
-            <Redirect to={PUBLIC_PATH.LOGIN} />
+          <Route exact path={PUBLIC_PATH.RESET_PASSWORD}>
+            <ResetPassword />
           </Route>
+          <Route exact path={PUBLIC_PATH.CONFIRM_EMAIL}>
+            <ConfirmEmail />
+          </Route>
+          <Redirect to={PUBLIC_PATH.LOGIN} />
         </Switch>
       </Unauthorized>
     ))

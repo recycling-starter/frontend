@@ -60,6 +60,14 @@ export const postUser = (values) => (dispatch, getState, api) => {
   })
 }
 
+export const resetPassword = (email) => (dispatch, getState, api) => {
+  return api.post(`/users/reset_password`, { email })
+}
+
+export const duplicateBackEnd = (path, params) => (dispatch, getState, api) => {
+  return api.post(path, params)
+}
+
 export const logout = () => () => {
   localStorage.clear()
   window.location.reload()

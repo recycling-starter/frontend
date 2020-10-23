@@ -42,7 +42,7 @@ const Registration = () => {
           name="first_name"
           rules={[{ required: true, message: `Введите имя` }]}
         >
-          <Input placeholder="Иван Иванович" size="large" />
+          <Input placeholder="Иван Иванов" size="large" />
         </Form.Item>
         <Form.Item
           label="E-mail"
