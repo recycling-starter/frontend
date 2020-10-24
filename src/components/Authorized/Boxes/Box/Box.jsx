@@ -35,6 +35,7 @@ const Box = () => {
   const { box, availableUsers } = useSelector((state) => state.boxes)
   const { isAdmin } = useSelector((state) => state.session)
   const [filling, setFilling] = useState(0)
+  const [form] = Form.useForm()
 
   useEffect(() => {
     setHeaderProps({
@@ -44,8 +45,8 @@ const Box = () => {
   }, [id, setHeaderProps])
 
   useEffect(() => {
-    dispatch(getBox(id))
-  }, [dispatch, id])
+    dispatch(getBox(id)).then(() => form.resetFields())
+  }, [dispatch, id, form])
 
   useEffect(() => {
     if (box) setFilling(box.fullness)
@@ -99,7 +100,7 @@ const Box = () => {
         {box.building.address}, {box.room.toLowerCase()}
       </Typography.Title>
       <Divider />
-      <Form layout="vertical" onFinish={handleFinish}>
+      <Form layout="vertical" onFinish={handleFinish} form={form}>
         <Progress
           width={!isDesktop && `50vw`}
           type={isDesktop ? `line` : `circle`}

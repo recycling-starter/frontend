@@ -7,6 +7,7 @@ import moment from 'moment'
 import { HeaderContext } from '../../Authorized'
 import { getCall, putCall } from '../callsActions'
 import { PRIVATE_PATH } from '../../../../config'
+import styles from '../../Users/User/user.module.scss'
 
 const Call = () => {
   const setHeaderProps = useContext(HeaderContext)
@@ -33,7 +34,7 @@ const Call = () => {
 
   if (!call) return null
   return (
-    <div style={{ width: `60%`, margin: `auto` }}>
+    <div className={styles.wrapper}>
       <Typography.Title level={4}>{call.building.address}</Typography.Title>
       <Divider>Список контейнеров</Divider>
       <List bordered>

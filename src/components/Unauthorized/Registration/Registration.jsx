@@ -19,7 +19,7 @@ const Registration = () => {
     const hide = message.loading(`Регистрация...`, 0)
     setLoading(true)
     try {
-      await dispatch(postUser(values))
+      await dispatch(postUser({ ...values, phone: `89${values.phone}` }))
       hide()
       message.success(
         `Ссылка для подтверждения регистрации отправлена на ваш e-mail`,
@@ -56,7 +56,12 @@ const Registration = () => {
           name="phone"
           rules={[{ required: true, message: `Введите номер телефона` }]}
         >
-          <Input placeholder="+7 (912) 345 67 89" type="phone" size="large" />
+          <Input
+            addonBefore="+79"
+            placeholder="12 345 67 89"
+            type="phone"
+            size="large"
+          />
         </Form.Item>
         <Form.Item
           hasFeedback
