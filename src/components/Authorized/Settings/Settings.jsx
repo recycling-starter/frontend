@@ -185,7 +185,7 @@ const Settings = () => {
             <Input placeholder="mailing@mail.com" size="large" />
           </Form.Item>
           <Form.Item
-            label="Максимум заполненных контейнеров"
+            label="Минимум контейнеров для вывоза"
             name="min_full_boxes"
             initialValue={organization.min_full_boxes}
             rules={[{ required: true, message: `Заполните поле` }]}

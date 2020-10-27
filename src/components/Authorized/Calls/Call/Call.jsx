@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Divider, Typography, List, Button } from 'antd'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router'
@@ -14,6 +14,7 @@ const Call = () => {
   const dispatch = useDispatch()
   const { id } = useParams()
   const { call } = useSelector((state) => state.calls)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     setHeaderProps({
@@ -28,8 +29,10 @@ const Call = () => {
   }, [dispatch, id])
 
   const handleConfirmDropOff = async () => {
+    setLoading(true)
     await dispatch(putCall(id))
-    dispatch(getCall(id))
+    await dispatch(getCall(id))
+    setLoading(false)
   }
 
   if (!call) return null
@@ -40,7 +43,10 @@ const Call = () => {
       <List bordered>
         {call.boxes.map((box) => (
           <List.Item key={box.data.id}>
-            <Link to={`${PRIVATE_PATH.BOXES}/${box.data.id}`}>
+            <Link
+              to={`${PRIVATE_PATH.BOXES}/${box.data.id}`}
+              style={{ color: !call.is_sent && `#f5222d` }}
+            >
               {box.data.room}
             </Link>
             <Typography.Text>{box.data.box_percent_dropped}%</Typography.Text>
@@ -50,12 +56,14 @@ const Call = () => {
       <Divider />
       <Button
         block
+        danger={!call.is_sent}
         size="large"
-        type="primary"
-        disabled={call.is_dropped}
+        type={call.is_sent && `primary`}
+        disabled={call.datetime_dropoff}
+        loading={loading}
         onClick={handleConfirmDropOff}
       >
-        {call.is_dropped ? `Вывоз подтверждён` : `Подтвердить вывоз`}
+        {call.datetime_dropoff ? `Вывоз подтверждён` : `Подтвердить вывоз`}
       </Button>
     </div>
   )

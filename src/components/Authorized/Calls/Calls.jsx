@@ -38,8 +38,9 @@ const Calls = () => {
         >
           <CallCard
             time={call.datetime_call}
-            isDropped={call.is_dropped}
+            isDropped={call.datetime_dropoff}
             address={call.building.address}
+            error={!call.is_sent}
           />
         </Link>
       ))}

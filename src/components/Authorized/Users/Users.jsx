@@ -46,6 +46,7 @@ const Users = () => {
             room={user.room}
             email={user.email}
             name={user.first_name}
+            phone={user.phone}
             building={getBuildingAddress(user.building)}
             isAdmin={!!user.organization}
             disabled={!user.is_active}
