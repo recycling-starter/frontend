@@ -71,7 +71,7 @@ const ResetPassword = () => {
           size="large"
           loading={loading}
         >
-          Зарегистрироваться
+          Сбросить пароль
         </Button>
       </Form.Item>
     </Form>
