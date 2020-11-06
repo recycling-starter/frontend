@@ -23,6 +23,7 @@ const Registration = () => {
       hide()
       message.success(
         `Ссылка для подтверждения регистрации отправлена на ваш e-mail`,
+        0,
       )
       history.push(`/login`)
     } catch (e) {

@@ -8,10 +8,14 @@ const BoxCard = (props) => {
     <Card title={id} style={style}>
       <div className={styles.contentWrapper}>
         <Progress type="circle" percent={fullness} width={80} />
-        <Statistic title="Расположение:" value={room} />
+        <Statistic
+          title="Расположение:"
+          value={room}
+          formatter={(value) => value}
+        />
       </div>
     </Card>
-  )
+  ) 
 }
 
 export default BoxCard

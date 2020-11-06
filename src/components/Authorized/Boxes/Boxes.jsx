@@ -7,6 +7,13 @@ import { PRIVATE_PATH } from '../../../config'
 import BoxCard from './BoxCard'
 import { getBoxes } from './boxesActions'
 
+const declOfNum = (number, words) =>
+  words[
+    number % 100 > 4 && number % 100 < 20
+      ? 2
+      : [2, 0, 1, 1, 1, 2][number % 10 < 5 ? number % 10 : 5]
+  ]
+
 const Boxes = () => {
   const dispatch = useDispatch()
   const setHeaderProps = useContext(HeaderContext)
@@ -32,9 +39,16 @@ const Boxes = () => {
           placeholder="Выберите здание"
           onChange={(building) => setBuilding(building)}
         >
-          {buildings.map((building) => (
-            <Select.Option value={building.id} key={building.id}>
-              {building.address}
+          {buildings.map((optionBuilding) => (
+            <Select.Option value={optionBuilding.id} key={optionBuilding.id}>
+              {optionBuilding.address}
+              {building === optionBuilding.id && boxes.length
+                ? ` – ${boxes.length} ${declOfNum(boxes.length, [
+                    `контейнер`,
+                    `контейнера`,
+                    `контейнеров`,
+                  ])}`
+                : null}
             </Select.Option>
           ))}
         </Select>
