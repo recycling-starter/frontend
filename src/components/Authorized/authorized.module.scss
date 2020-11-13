@@ -15,6 +15,7 @@
   padding: calc(var(--headerHeight) + 24px) 24px 24px;
   display: grid;
   grid-gap: 24px;
+  grid-template-columns: 100%;
 }
 
 .text {
